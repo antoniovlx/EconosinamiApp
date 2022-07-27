@@ -1,0 +1,54 @@
+<ion-grid fixed>
+  <!--<div mat-dialog-actions align="end">
+      <button mat-button (click)="cancelar()">
+        <mat-icon class="red-icon">close</mat-icon>{{'Cancelar' | translate}}
+      </button>
+      <button mat-button cdkFocusInitial (click)="guardar()"
+        [disabled]="denominacionRecurso.value == '' || unidadMedida.value == ''">
+        <mat-icon class="green-icon">done</mat-icon>{{'Guardar' | translate}}
+      </button>
+    </div>-->
+  <ion-row>
+    <ion-col size="6">
+      <ion-item>
+        <ion-label position="stacked">{{'Denominación' | translate}} (*)</ion-label>
+        <ion-input #denominacionRecurso required [(ngModel)]="recurso.descripcion" (ionChange)="setButtons()">
+        </ion-input>
+      </ion-item>
+    </ion-col>
+    <!--<ion-col size="3">
+      <ion-item>
+        <ion-label position="stacked">{{'Tipo' | translate}}</ion-label>
+        <ion-select [value]="tipoRecurso" (ionChange)="updateTipo($event)">
+          <ion-select-option value="">-</ion-select-option>
+          <ion-select-option value="F">{{'Madera fustal' | translate}}</ion-select-option>
+          <ion-select-option value="L">{{'Madera latizal' | translate}}</ion-select-option>
+          <ion-select-option value="M">{{'Madera montebravo' | translate}}</ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-col>-->
+
+    <ion-col size="6">
+      <ion-item>
+        <ion-label position="stacked">{{'Unidad de medida' | translate}}</ion-label>
+        <ion-input #unidadMedida required [(ngModel)]="recurso.unidad"></ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col size="6">
+      <ion-item>
+        <ion-label position="stacked">{{'Recuperación' | translate}} (*)</ion-label>
+        <ion-input type="number" #codigoEspecie required [(ngModel)]="recurso.periodoPosterior"
+          (ionChange)="setButtons()"></ion-input>
+      </ion-item>
+    </ion-col>
+    <ion-col size="6">
+      <ion-item>
+        <ion-label position="stacked">{{'Factor' | translate}}</ion-label>
+        <ion-input type="number" #denominacionRecurso required [(ngModel)]="recurso.decFactor"></ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+</ion-grid>

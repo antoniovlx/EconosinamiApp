@@ -1,0 +1,60 @@
+<ion-grid fixed>
+  <!--<div mat-dialog-actions align="end">
+    <button mat-button cdkFocusInitial (click)="guardar()">
+      <mat-icon class="green-icon">build</mat-icon>{{'Grabar' | translate}}
+    </button>
+  </div>-->
+  <ion-row>
+    <ion-col sizeMd="12" sizeSm="12" sizeXs="12">
+      <ion-item>
+        <ion-label position="stacked">{{'Zamif' | translate}}</ion-label>
+        <ion-select #select [value]="selectedZamif" (ionChange)="updateZamifList(select.value)">
+          <ion-select-option *ngFor="let zamif of zamifList" [value]="zamif.idZamif">
+            {{zamif.zamif + '.- ' + zamif.descripcion}}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <div class="table-container mat-elevation-z8">
+    <table mat-table [dataSource]="historicoData">
+      <ng-container matColumnDef="tamano fuegos">
+        <th mat-header-cell *matHeaderCellDef> {{'Tamaño fuego' | translate}} </th>
+        <td mat-cell *matCellDef="let element"> {{tamannos[element.tamano-1]}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="numero fuegos">
+        <th mat-header-cell *matHeaderCellDef> {{'Número de fuegos' | translate}} </th>
+        <td mat-cell *matCellDef="let element">
+          <mat-form-field appearance="fill" floatLabel="always">
+            <input required matInput type="number" [(ngModel)]="element.numFuegos" (change)="onChange()">
+          </mat-form-field>
+        </td>
+      </ng-container>
+
+
+      <ng-container matColumnDef="superficie quemada">
+        <th mat-header-cell *matHeaderCellDef> {{'Superficie quemada' | translate}} </th>
+        <td mat-cell *matCellDef="let element">
+          <mat-form-field appearance="fill" floatLabel="always">
+            <input required matInput type="number" [(ngModel)]="element.area" (change)="onChange()">
+          </mat-form-field>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="coste estimado">
+        <th mat-header-cell *matHeaderCellDef> {{'Coste promedio por hectárea' | translate: utilService.getMoneda()}}
+        </th>
+        <td mat-cell *matCellDef="let element">
+          <mat-form-field appearance="fill" floatLabel="always">
+            <input required matInput type="number" [(ngModel)]="element.coste" (change)="onChange()">
+          </mat-form-field>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </div>
+</ion-grid>

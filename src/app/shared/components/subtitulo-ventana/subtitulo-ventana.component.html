@@ -1,0 +1,9 @@
+<ion-item class="subtitulo-ventana">
+  <ion-button *ngIf="!isMainComponent" fill="clear" (click)="goPrev()">
+    <ion-icon name="arrow-back" color="primary"></ion-icon>
+  </ion-button>
+  <ion-label>{{currentTitleComponent | translate}}</ion-label>
+  <ion-button *ngIf="helpText !== undefined" fill="clear" (click)="help()">
+    <ion-icon size="large" name="help-circle"></ion-icon>
+  </ion-button>
+</ion-item>

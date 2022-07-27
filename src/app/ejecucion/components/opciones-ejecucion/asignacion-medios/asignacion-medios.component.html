@@ -1,0 +1,85 @@
+<div class="table-container mat-elevation-z8">
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+      <ng-container [matColumnDef]="column" *ngFor="let column of displayedColumns; let columnIndex = index">
+          <th mat-header-cell *matHeaderCellDef>
+              <ng-container *ngIf="column == 'medio'">
+                  <span [style.paddingLeft.px]="10"> {{'Tipos' | translate}} / {{'Medios de combate'
+                      |
+                      translate}}</span>
+              </ng-container>
+              <ng-container *ngIf="column == 'coste'">
+                  {{'Coste' | translate: currency}}
+              </ng-container>
+              <ng-container *ngIf="column != 'medio' && column != 'coste'">{{ getColumnName(column) }} </ng-container>
+          </th>
+          <td mat-cell *matCellDef="let data; let rowIndex = index">
+              <ng-container *ngIf="column == 'medio'">
+                  <button mat-icon-button [style.visibility]="!data.expandable ? 'hidden' : ''"
+                      [style.marginLeft.px]="data.level * 20" (click)="treeControl.toggle(data)">
+                      <mat-icon class="mat-icon-rtl-mirror">
+                          {{treeControl.isExpanded(data) ? 'expand_more' : 'chevron_right'}}
+                      </mat-icon>
+                  </button>
+                  <a *ngIf="data.level == 0" (click)="treeControl.toggle(data)">{{data.nombre}} ({{data.countMedios
+                      }})</a>
+                  <span *ngIf="data.level != 0">{{data.nombre}}</span>
+              </ng-container>
+              <ng-container *ngIf="column == 'coste'">
+                  {{data.coste | currency: ''}}
+              </ng-container>
+              <ng-container *ngIf="column != 'medio' && column != 'coste'">
+                  <mat-checkbox *ngIf="data.level != 0" class="example-margin"
+                      (change)="onChangeSeleccionado($event, data, column)"
+                      [checked]="getSeleccionadoColumn(data.seleccionado, columnIndex)"></mat-checkbox>
+              </ng-container>
+          </td>
+      </ng-container>
+
+      <ng-container [matColumnDef]="column" *ngFor="let column of maximoTotalColumns; let columnIndex = index">
+          <ng-container *ngIf="column != 'maximo'">
+              <td mat-footer-cell *matFooterCellDef>
+                  <span>{{presupuestoMax[columnIndex - 1].suma | currency: currency.moneda:'code'}}</span>
+              </td>
+          </ng-container>
+          <ng-container *ngIf="column == 'maximo'">
+              <td mat-footer-cell *matFooterCellDef colspan="2" class="column-right">
+                  <b>{{'Presupuesto máximo' | translate: currency}}</b>
+              </td>
+          </ng-container>
+      </ng-container>
+
+      <ng-container [matColumnDef]="column" *ngFor="let column of usadoTotalColumns; let columnIndex = index">
+          <ng-container *ngIf="column != 'usado'">
+              <td mat-footer-cell *matFooterCellDef>
+                  <span>{{presupuestoUsado[columnIndex - 1].suma | currency: currency.moneda:'code'}}</span>
+              </td>
+          </ng-container>
+          <ng-container *ngIf="column == 'usado'">
+              <td mat-footer-cell *matFooterCellDef colspan="2" class="column-right">
+                  <b>{{'Presupuesto usado' | translate: currency}}</b>
+              </td>
+          </ng-container>
+      </ng-container>
+
+      <ng-container [matColumnDef]="column" *ngFor="let column of disponibleTotalColumns; let columnIndex = index">
+          <ng-container *ngIf="column != 'disponible'">
+              <td mat-footer-cell *matFooterCellDef>
+                  <span>{{ presupuestoMax[columnIndex - 1].suma - presupuestoUsado[columnIndex - 1].suma | currency:
+                      currency.moneda:'code'}}</span>
+              </td>
+          </ng-container>
+          <ng-container *ngIf="column == 'disponible'">
+              <td mat-footer-cell *matFooterCellDef colspan="2" class="column-right">
+                  <b>{{'Presupuesto disponible' | translate: currency}}</b>
+              </td>
+          </ng-container>
+      </ng-container>
+
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      <tr mat-footer-row *matFooterRowDef="maximoTotalColumns; sticky: true"></tr>
+      <tr mat-footer-row *matFooterRowDef="usadoTotalColumns; sticky: true"></tr>
+      <tr mat-footer-row *matFooterRowDef="disponibleTotalColumns; sticky: true"></tr>
+  </table>
+</div>

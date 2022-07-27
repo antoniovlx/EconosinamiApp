@@ -1,0 +1,72 @@
+<!--<div mat-dialog-actions align="end">
+  <button mat-button (click)="close()">
+      <mat-icon class="red-icon">close</mat-icon>{{ 'Cancelar' | translate}}
+  </button>
+  <button mat-button cdkFocusInitial (click)="save()">
+      <mat-icon class="green-icon">save</mat-icon>{{ 'Guardar' | translate}}
+  </button>
+</div>-->
+<div #content class="contentData">
+  <div class="invoice-box">
+      <table cellpadding="0" cellspacing="0">
+          <tr class="top">
+              <td [attr.colspan]="colSpan">
+                  <table>
+                      <tr>
+                          <td class="title">
+                              <img src="data:image/png;base64,{{base64Logo}}" style="margin-left: -12px; width: 100%; max-width: 550px" />
+                          </td>
+                      </tr>
+                      <tr class="details">
+                          <td class="titulo">{{ 'DESCRIPCION APP' | translate}}</td>
+                      </tr>
+                  </table>
+              </td>
+          </tr>
+
+          <tr class="information">
+              <td [attr.colspan]="colSpan">
+
+                  <table>
+                      <tr>
+                          <td class="subtitulo">
+                              {{ 'Sumario de opciones' | translate}}
+                          </td>
+                          <td class="subtitulo">
+                              {{ 'Fecha' | translate}}: {{ today }}
+                          </td>
+                      </tr>
+                  </table>
+              </td>
+          </tr>
+      </table>
+      <table [attr.id]="'tableId' + i" cellpadding="0" cellspacing="0" *ngFor="let gdcf of data.selectedGrupos;let i = index">
+          <div class="separator"></div>
+          <tr class="heading principal">
+              <td [attr.colspan]="colSpan">{{ 'Grupo de comportamiento del fuego' | translate}}: ({{ gdcf.gdcf }}) {{
+                  gdcf.descripcion }}</td>
+          </tr>
+          <tr class="details">
+              <td [attr.colspan]="colSpan" style="padding-bottom: 20px;">{{ 'Datos' | translate}}: {{ tipoResultado | translate}}</td>
+          </tr>
+
+          <tr class="heading centrar">
+              <td>{{ 'Opción' | translate}}</td>
+              <td>{{ 'Presupuesto' | translate: utilService.getMoneda()}}</td>
+              <td>{{ 'Costo extinción' | translate}} ({{moneda}})</td>
+              <td>CNVR</td>
+              <td>Total (C+CNVR) ({{moneda}})</td>
+              <td>{{ 'Superficie' | translate}} (m2)</td>
+          </tr>
+
+          <tr *ngFor="let opcion of listaOpciones; let i = index;" class="details centrar">
+              <td class="blue">({{ opcion.opcion}}) {{ opcion.descripcion}}</td>
+              <td>{{opcion.presupuesto }}</td>
+              <td>{{opcion.costo}}</td>
+              <td>{{opcion.cnvr}}</td>
+              <td>{{opcion.total}}</td>
+              <td>{{opcion.superficie | number: '0.1-2'}}</td>
+          </tr>
+      </table>
+  </div>
+</div>

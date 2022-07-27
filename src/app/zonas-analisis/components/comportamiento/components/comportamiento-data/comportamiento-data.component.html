@@ -1,0 +1,95 @@
+<ion-grid fixed>
+  <!--<div mat-dialog-actions align="end">
+    <button mat-button (click)="cancelar()">
+      <mat-icon class="red-icon">close</mat-icon>{{'Cancelar' | translate}}
+    </button>
+    <button mat-button (click)="guardar()" cdkFocusInitial
+      [disabled]="codigoGdcf.value=='' || denominacionGdcf.value==''">
+      <mat-icon class="green-icon">done</mat-icon>{{'Guardar' | translate}}
+    </button>
+  </div>-->
+  <ion-row>
+    <ion-col size="6">
+      <ion-item>
+        <ion-label position="stacked">{{'Código' | translate}} (*)</ion-label>
+        <ion-input #codigoGdcf required [(ngModel)]="grupoDcf.gdcf" (ionChange)="setButtons()"></ion-input>
+      </ion-item>
+    </ion-col>
+    <ion-col size="6">
+      <ion-item>
+        <ion-label position="stacked">{{'Descripción' | translate}} (*)</ion-label>
+        <ion-input #denominacionGdcf required [(ngModel)]="grupoDcf.descripcion" (ionChange)="setButtons()"></ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col sizeLg="8" sizeMd="6" sizeSm="6" size="7">
+      <ion-item>
+        <ion-label position="stacked">{{'ZAMIF' | translate}}</ion-label>
+        <ion-select #zamif [value]="idZamifSelected" (ionChange)="updateZamif(zamif.value)">
+          <ion-select-option *ngFor="let zamif of zamifList" [value]="zamif.idZamif">
+            {{zamif.zamif + '-' + zamif.descripcion}}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-col>
+    <ion-col sizeLg="4" sizeMd="6" sizeSm="6" size="5">
+      <button mat-button (click)="openEscapados()" class="btn-escapados">
+        <mat-icon class="green-icon">swap_horizontal_circle</mat-icon><span>{{'Incendios escapados' | translate}}</span>
+      </button>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col size="12">
+      <div class="table-container mat-elevation-z8">
+        <table mat-table [dataSource]="dcfSelected">
+          <ng-container matColumnDef="intensidad">
+            <th mat-header-cell *matHeaderCellDef> {{'Intensidad' | translate}} </th>
+            <td mat-cell *matCellDef="let element"> {{element.intensidad }} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="numerofuegos">
+            <th mat-header-cell *matHeaderCellDef> {{'Número de fuegos' | translate}} </th>
+            <td mat-cell *matCellDef="let element">
+              <mat-form-field floatLabel="never">
+                <input type="number" matInput [value]="element.numFuegos" [(ngModel)]="element.numFuegos">
+              </mat-form-field>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="50perc">
+            <th mat-header-cell *matHeaderCellDef> {{'percentil' | translate}} 50 </th>
+            <td mat-cell *matCellDef="let element">
+              <mat-form-field floatLabel="never">
+                <input type="number" matInput [value]="element.velPropMax50pctl" [(ngModel)]="element.velPropMax50pctl">
+              </mat-form-field>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="90perc">
+            <th mat-header-cell *matHeaderCellDef> {{'percentil' | translate}} 90 </th>
+            <td mat-cell *matCellDef="let element">
+              <mat-form-field floatLabel="never">
+                <input type="number" matInput [value]="element.velPropMax90pctl" [(ngModel)]="element.velPropMax90pctl">
+              </mat-form-field>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="empty">
+            <th mat-header-cell *matHeaderCellDef [attr.colspan]="2"></th>
+          </ng-container>
+
+          <ng-container matColumnDef="velocidad">
+            <th mat-header-cell *matHeaderCellDef [attr.colspan]="2"> {{'Velocidad de propagación máxima' | translate}}
+            </th>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="['empty','velocidad']"></tr>
+          <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+        <loading [isLoading]="isLoading"></loading>
+      </div>
+    </ion-col>
+  </ion-row>
+</ion-grid>

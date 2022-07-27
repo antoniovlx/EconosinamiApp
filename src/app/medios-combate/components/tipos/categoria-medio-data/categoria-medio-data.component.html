@@ -1,0 +1,24 @@
+<ion-grid fixed>
+  <!--<div mat-dialog-actions align="end">
+    <button mat-button (click)="cancelar()">
+      <mat-icon class="red-icon">close</mat-icon>{{'Cancelar' | translate}}
+    </button>
+    <button mat-button cdkFocusInitial (click)="guardar()" [disabled]="codigo.value == '' || descripcion.value == ''">
+      <mat-icon class="green-icon">done</mat-icon>{{'Guardar' | translate}}
+    </button>
+  </div>-->
+  <ion-row>
+    <ion-col size="6">
+      <ion-item>
+        <ion-label position="stacked">{{'Código' | translate}} (*)</ion-label>
+        <ion-input #codigo required [(ngModel)]="categoria.categoriaMedios" (ionChange)="setButtons()"></ion-input>
+      </ion-item>
+    </ion-col>
+    <ion-col size="6">
+      <ion-item>
+        <ion-label position="stacked">{{'Descripción' | translate}} (*)</ion-label>
+        <ion-input #descripcion required [(ngModel)]="categoria.descripcion" (ionChange)="setButtons()"></ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+</ion-grid>

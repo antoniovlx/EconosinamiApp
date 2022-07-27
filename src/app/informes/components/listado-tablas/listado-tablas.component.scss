@@ -1,0 +1,44 @@
+.table-container {
+    max-height: calc(100vh - 400px);
+    overflow: auto;
+}
+
+.mat-radio-button{
+    margin-right: 8px;
+}
+
+.mat-row:hover{
+    background-color: white;
+}
+
+.table-container {
+    max-height: calc(100vh - 400px);
+    overflow: auto;
+}
+
+.mat-radio-button{
+    margin-right: 8px;
+}
+
+.mat-row:hover{
+    background-color: white;
+}
+
+.show-result{
+    margin-top: 10px;
+}
+
+.show-result mat-label{
+    font-weight: 500;
+    margin-right: 2px;
+}
+
+.double-table-content{
+    margin-right: 2px;
+    //margin-left: 2px;
+}
+
+ion-col ion-item {
+    --border-color: white;
+    min-height: 60px;
+  }

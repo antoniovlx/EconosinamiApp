@@ -1,0 +1,61 @@
+<ion-grid fixed>
+  <!--<div mat-dialog-actions align="end">
+    <button mat-button cdkFocusInitial (click)="aceptar()">
+      <mat-icon class="green-icon">done</mat-icon>{{'Aceptar' | translate}}
+    </button>
+  </div>-->
+  <ion-row>
+    <ion-col size="12">
+      <ion-item>
+        <ion-label position="stacked">{{'Lugar representativo' | translate}}</ion-label>
+        <ion-select #lr [value]="idLrSelected" (ionChange)="updateLr(lr.value)">
+          <ion-select-option *ngFor="let lr of lrList" [value]="lr.idLr">
+            {{lr.lr + '-' + lr.descripcion}}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-col>
+    <ion-col size="12">
+  
+      <div class="table-container mat-elevation-z8">
+        <table mat-table [dataSource]="dcflrsSelected">
+          <ng-container matColumnDef="intensidad">
+            <th mat-header-cell *matHeaderCellDef>{{'Intensidad' | translate}} </th>
+            <td mat-cell *matCellDef="let element"> {{element.intensidad}} </td>
+          </ng-container>
+          <ng-container matColumnDef="50perc">
+            <th mat-header-cell *matHeaderCellDef> {{'percentil' | translate}} 50</th>
+            <td mat-cell *matCellDef="let element">
+              <mat-form-field floatLabel="never">
+                <input type="number" matInput [value]="element.superficieEsc50pctl"
+                  [(ngModel)]="element.superficieEsc50pctl">
+              </mat-form-field>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="90perc">
+            <th mat-header-cell *matHeaderCellDef> {{'percentil' | translate}} 90</th>
+            <td mat-cell *matCellDef="let element">
+              <mat-form-field floatLabel="never">
+                <input type="number" matInput [value]="element.superficieEsc90pctl"
+                  [(ngModel)]="element.superficieEsc90pctl">
+              </mat-form-field>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="empty">
+            <th mat-header-cell *matHeaderCellDef [attr.colspan]="1"></th>
+          </ng-container>
+
+          <ng-container matColumnDef="superficie">
+            <th mat-header-cell *matHeaderCellDef [attr.colspan]="3"> {{'Superficie' | translate}}</th>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="['empty','superficie']"></tr>
+          <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table> 
+        <loading [isLoading]="isLoading"></loading>
+      </div>
+    </ion-col>
+  </ion-row>

@@ -1,0 +1,13 @@
+<ion-breadcrumbs>
+	<ion-breadcrumb [href]="" *ngFor="let breadcrumb of breadcrumbs">
+		<ion-thumbnail slot="start" class="option">
+			<img [src]="breadcrumb.imagePath">
+		</ion-thumbnail>
+		{{breadcrumb.label | translate}}
+	</ion-breadcrumb>
+	<!--<ion-button (click)="openAbout()" expand="block" fill="clear" shape="round">
+		<ion-thumbnail slot="end" class="option">
+			<img src="./assets/img/question.png">
+		</ion-thumbnail>
+	</ion-button>-->
+</ion-breadcrumbs>

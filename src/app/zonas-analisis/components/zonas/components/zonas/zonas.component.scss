@@ -1,0 +1,24 @@
+:host{
+    background-color: white;
+}
+
+// overwrite the checkbox background
+::ng-deep .mat-checkbox-checked .mat-checkbox-background, 
+.mat-checkbox-indeterminate .mat-checkbox-background {
+  background-color: black !important;
+  
+}
+
+// overwrite the ripple overlay on hover and click
+::ng-deep .mat-checkbox:not(.mat-checkbox-disabled) .mat-checkbox-ripple .mat-ripple-element {
+  background-color: black !important;
+}
+
+.no-click-backdrop {
+  pointer-events: none;
+}
+
+.mat-column-zamif {
+  width: 50px;
+}
+

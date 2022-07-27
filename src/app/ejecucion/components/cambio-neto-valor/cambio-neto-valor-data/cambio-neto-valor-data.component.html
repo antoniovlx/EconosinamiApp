@@ -1,0 +1,113 @@
+<ion-grid fixed class="grid-notoolbar">
+    <!--<div mat-dialog-actions align="end">
+  <button mat-button cdkFocusInitial (click)="calcularNVC()">
+        <mat-icon class="blue-icon">build</mat-icon>{{'Calcular' | translate}}
+      </button>
+    <button mat-button cdkFocusInitial (click)="confirm()">
+      <mat-icon class="green-icon">save</mat-icon>{{'Grabar' | translate}}
+    </button>
+  </div>-->
+    <ion-row>
+        <ion-col sizeMd="12" sizeSm="12" sizeXs="12">
+            <ion-item>
+                <ion-label position="stacked">{{'Grupo de cálculo de cambio neto en el valor de los recursos' |
+                    translate}}</ion-label>
+                <ion-select #select [value]="selectedGrupoCnvr" (ionChange)="updateGrupoCnvr(select.value)">
+                    <ion-select-option *ngFor="let grupo of gruposCnvr" [value]="grupo.idGrupoCnvr">
+                        {{grupo.grupoCnvr + '.- ' + grupo.descripcion}}
+                    </ion-select-option>
+                </ion-select>
+            </ion-item>
+        </ion-col>
+    </ion-row>
+
+    <div class="table-container mat-elevation-z8">
+        <table mat-table [dataSource]="dataList">
+            <ng-container matColumnDef="bloqueado">
+                <th mat-header-cell *matHeaderCellDef> {{'Bloqueado' | translate}} </th>
+                <td mat-cell *matCellDef="let element">
+                    <mat-checkbox class="example-margin" [checked]="element.bloqueado === 'True'"></mat-checkbox>
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="recurso" sticky>
+                <th mat-header-cell *matHeaderCellDef> {{'Recurso' | translate}} </th>
+                <td mat-cell *matCellDef="let element; index as i" class="sticky-column" (click)="updateBloqueado(i)">
+                    {{element.idRecursoForestal.descripcion}} </td>
+            </ng-container>
+
+
+            <ng-container matColumnDef="intensidad1">
+                <th mat-header-cell *matHeaderCellDef> {{'1'}} </th>
+                <td mat-cell *matCellDef="let element">
+                    <mat-form-field appearance="fill" floatLabel="always">
+                        <input type="number" required matInput [(ngModel)]="element.calcIntensidad1"
+                            (change)="updateDataToSave()">
+                    </mat-form-field>
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="intensidad2">
+                <th mat-header-cell *matHeaderCellDef> {{'2'}} </th>
+                <td mat-cell *matCellDef="let element">
+                    <mat-form-field appearance="fill" floatLabel="always">
+                        <input type="number" required matInput [(ngModel)]="element.calcIntensidad2"
+                            (change)="updateDataToSave()">
+                    </mat-form-field>
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="intensidad3">
+                <th mat-header-cell *matHeaderCellDef> {{'3'}} </th>
+                <td mat-cell *matCellDef="let element">
+                    <mat-form-field appearance="fill" floatLabel="always">
+                        <input type="number" required matInput [(ngModel)]="element.calcIntensidad3"
+                            (change)="updateDataToSave()">
+                    </mat-form-field>
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="intensidad4">
+                <th mat-header-cell *matHeaderCellDef> {{'4'}} </th>
+                <td mat-cell *matCellDef="let element">
+                    <mat-form-field appearance="fill" floatLabel="always">
+                        <input type="number" required matInput [(ngModel)]="element.calcIntensidad4"
+                            (change)="updateDataToSave()">
+                    </mat-form-field>
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="intensidad5">
+                <th mat-header-cell *matHeaderCellDef> {{'5'}} </th>
+                <td mat-cell *matCellDef="let element">
+                    <mat-form-field appearance="fill" floatLabel="always">
+                        <input type="number" required matInput [(ngModel)]="element.calcIntensidad5"
+                            (change)="updateDataToSave()">
+                    </mat-form-field>
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="intensidad6">
+                <th mat-header-cell *matHeaderCellDef> {{'6'}} </th>
+                <td mat-cell *matCellDef="let element">
+                    <mat-form-field appearance="fill" floatLabel="always">
+                        <input type="number" required matInput [(ngModel)]="element.calcIntensidad6"
+                            (change)="updateDataToSave()">
+                    </mat-form-field>
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="empty" sticky>
+                <th mat-header-cell *matHeaderCellDef [attr.colspan]="2"></th>
+            </ng-container>
+
+            <ng-container matColumnDef="incremento">
+                <th mat-header-cell *matHeaderCellDef [attr.colspan]="6"> {{'Nivel intensidad' | translate}}</th>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="['empty','incremento']"></tr>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+    </div>
+</ion-grid>

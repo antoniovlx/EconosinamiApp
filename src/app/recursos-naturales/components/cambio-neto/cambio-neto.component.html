@@ -1,0 +1,84 @@
+<ion-accordion-group value="grupos">
+    <ion-accordion value="grupos">
+        <ion-item slot="header" class="subtitulo-ventana">
+            <ion-label>
+                <ion-icon name="caret-forward-outline"></ion-icon>
+                {{'Definición de grupos de cambio neto en el valor de los recursos' | translate}}
+            </ion-label>
+        </ion-item>
+        <div slot="content">
+            <div class="table-container mat-elevation-z8">
+                <table mat-table [dataSource]="grupoCambioNetoList">
+                    <ng-container matColumnDef="select">
+                        <th mat-header-cell *matHeaderCellDef>
+                            <mat-checkbox (change)="$event ? masterToggle() : null"
+                                [checked]="selection.hasValue() && isAllSelected()"
+                                [indeterminate]="selection.hasValue() && !isAllSelected()"
+                                [aria-label]="checkboxLabel()">
+                            </mat-checkbox>
+                        </th>
+                        <td mat-cell *matCellDef="let row">
+                            <mat-checkbox (click)="$event.stopPropagation()"
+                                (change)="$event ? selection.toggle(row) : null" [checked]="selection.isSelected(row)"
+                                [aria-label]="checkboxLabel(row)">
+                            </mat-checkbox>
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="codigo">
+                        <th mat-header-cell *matHeaderCellDef> {{'Código' | translate}} </th>
+                        <td mat-cell *matCellDef="let element"> {{ element.grupoCnvr }} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="descripcion">
+                        <th mat-header-cell *matHeaderCellDef> {{'Descripción' | translate}} </th>
+                        <td mat-cell *matCellDef="let element"> {{element.descripcion}} </td>
+                    </ng-container>
+
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+                    <tr mat-row (click)="open(row)" *matRowDef="let row; columns: displayedColumns;"></tr>
+                </table>
+                <loading [isLoading]="isLoading1"></loading>
+            </div>
+            <div class="options">
+                <button (click)="open()" mat-raised-button>
+                    <mat-icon class="green-icon">add</mat-icon> <span>{{'Añadir grupo' | translate}}</span>
+                </button>
+                <button [disabled]="!isSelected()" (click)="delete()" mat-raised-button>
+                    <mat-icon class="red-icon">delete</mat-icon> <span>{{'Borrar grupo' | translate}}</span>
+                </button>
+            </div>
+        </div>
+    </ion-accordion>
+    <ion-accordion value="lugares">
+        <ion-item slot="header" class="subtitulo-ventana">
+            <ion-label>
+                <ion-icon name="caret-forward-outline"></ion-icon>
+                {{'Asignación a lugares representativos'
+                | translate}}
+            </ion-label>
+        </ion-item>
+        <div slot="content">
+            <div class="table-container mat-elevation-z8">
+                <table mat-table [dataSource]="zamifList">
+                    <ng-container matColumnDef="codigo">
+                        <th mat-header-cell *matHeaderCellDef> {{'Código' | translate}} </th>
+                        <td mat-cell *matCellDef="let element"> {{element.zamif}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="descripcion">
+                        <th mat-header-cell *matHeaderCellDef> {{'ZAMIF' | translate}} </th>
+                        <td mat-cell *matCellDef="let element"> {{element.descripcion}} </td>
+                    </ng-container>
+
+                    <tr mat-header-row *matHeaderRowDef="displayedColumnsZamif; sticky: true"></tr>
+                    <tr mat-row (click)="openZamif(row)" *matRowDef="let row; columns: displayedColumnsZamif;"></tr>
+                </table>
+                <loading [isLoading]="isLoading2"></loading>
+            </div>
+            <ion-button *ngIf="zamifList.length === 0" routerLink="/zonas-analisis/1" expand="block" fill="clear"
+                shape="round">
+                {{'No hay zonas de análisis, pulsa para añadir' | translate}}
+            </ion-button>
+        </div>
+    </ion-accordion>
+</ion-accordion-group>

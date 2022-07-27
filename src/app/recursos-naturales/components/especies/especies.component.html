@@ -1,0 +1,40 @@
+<div class="total">
+  <span>{{'Total' | translate}}: {{ elements }} {{'Elementos' | translate}}</span>
+</div>
+<div #table class="table-container mat-elevation-z8">
+  <table mat-table [dataSource]="especieList">
+    <ng-container matColumnDef="select">
+      <th mat-header-cell *matHeaderCellDef>
+        <mat-checkbox (change)="$event ? masterToggle() : null" [checked]="selection.hasValue() && isAllSelected()"
+          [indeterminate]="selection.hasValue() && !isAllSelected()" [aria-label]="checkboxLabel()">
+        </mat-checkbox>
+      </th>
+      <td mat-cell *matCellDef="let row" (click)="$event.stopPropagation();">
+        <mat-checkbox #checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null"
+          [checked]="selection.isSelected(row)" [aria-label]="checkboxLabel(row.idZamif, row)">
+        </mat-checkbox>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="codigo">
+      <th mat-header-cell *matHeaderCellDef> {{'Código' | translate}} </th>
+      <td mat-cell *matCellDef="let element"> {{element.especie}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="descripcion">
+      <th mat-header-cell *matHeaderCellDef> {{'Descripción' | translate}} </th>
+      <td mat-cell *matCellDef="let element"> {{element.descripcion}} </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+    <tr mat-row (click)="open(row)" *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table> <loading [isLoading]="isLoading"></loading>
+</div>
+<div class="options">
+  <button (click)="open()" mat-raised-button>
+    <mat-icon class="green-icon">add</mat-icon> <span>{{'Añadir especie' | translate}}</span>
+  </button>
+  <button [disabled]="!isSelected()" (click)="delete()" mat-raised-button>
+    <mat-icon class="red-icon">delete</mat-icon> <span>{{'Borrar especie' | translate}}</span>
+  </button>
+</div>

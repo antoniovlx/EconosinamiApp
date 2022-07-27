@@ -1,0 +1,9 @@
+ion-tab-bar {
+    margin-top: 100px;
+}
+
+@media (max-width: 425px) {
+    ion-segment-button ion-item ion-label {
+        display: none;
+    }
+}

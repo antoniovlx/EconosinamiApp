@@ -1,0 +1,26 @@
+.table-container {
+    max-height: calc(100vh - 220px);
+    margin-top: 10px;
+    overflow: auto;
+}
+
+@media (min-width: 600px) and (max-width: 799px) {
+    .presupuestos-container {
+        margin-left: 50px !important;
+        margin-right: 50px !important;
+    }
+}
+
+@media (min-width: 800px) and (max-width: 1450px) {
+    .presupuestos-container {
+        margin-left: 100px !important;
+        margin-right: 100px !important;
+    }
+}
+
+@media (min-width: 1451px) {
+    .presupuestos-container {
+        margin-left: 200px !important;
+        margin-right: 200px !important;
+    }
+}

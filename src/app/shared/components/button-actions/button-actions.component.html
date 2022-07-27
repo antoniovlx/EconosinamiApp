@@ -1,0 +1,11 @@
+<div mat-dialog-actions align="end" *ngIf="buttons" [ngClass]="{'noToolbar': noToolbar, '': !noToolbar}">
+  <button *ngFor="let button of buttons" mat-button cdkFocusInitial (click)="action(button.action)"
+    [disabled]="aviso ? true : button.disabled">
+    <mat-icon [class]="button.class">{{ button.icon }}</mat-icon>{{ button.label | translate}}
+  </button>
+</div>
+<div *ngIf="aviso" class="aviso">
+  <ion-note color="danger">{{ aviso.mensaje }}. <span [routerLink]="aviso.link" routerDirection="forward"
+      expand="block"><u>Pulse aquí</u></span>
+  </ion-note>
+</div>

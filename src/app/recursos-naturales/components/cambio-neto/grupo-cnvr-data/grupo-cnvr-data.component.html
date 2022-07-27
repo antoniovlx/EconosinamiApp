@@ -1,0 +1,106 @@
+<ion-grid fixed>
+  <!--<div mat-dialog-actions align="end">
+    <button mat-button (click)="cancelar()">
+      <mat-icon class="red-icon">close</mat-icon>{{'Cancelar' | translate}}
+    </button>
+    <button mat-button cdkFocusInitial (click)="guardar()"
+      [disabled]="denominacionRecurso.value == '' || unidadMedida.value == ''">
+      <mat-icon class="green-icon">done</mat-icon>{{'Guardar' | translate}}
+    </button>
+  </div>-->
+  <ion-row>
+    <ion-col size="4">
+      <ion-item>
+        <ion-label position="stacked">{{'Código' | translate}} (*)</ion-label>
+        <ion-input required [(ngModel)]="grupoCnvr.grupoCnvr" (ionChange)="setButtons()"></ion-input>
+      </ion-item>
+    </ion-col>
+    <ion-col size="4">
+      <ion-item>
+        <ion-label position="stacked">{{'Descripción' | translate}} (*)</ion-label>
+        <ion-input required [(ngModel)]="grupoCnvr.descripcion" (ionChange)="setButtons()"></ion-input>
+      </ion-item>
+    </ion-col>
+
+    <ion-col size="4">
+      <ion-item>
+        <ion-label position="stacked">{{'Superficie del grupo' | translate}} (*)</ion-label>
+        <ion-input type="number" required [(ngModel)]="grupoCnvr.haTotal" (ionChange)="setButtons()"></ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <titulo-apartado [imagePath]="'./assets/img/species.png'" [titulo]="'Grupos de especies'">
+  </titulo-apartado>
+
+  <ion-row>
+    <ion-col size="11">
+      <ion-item [ngClass]="{'readonly': gruposFustal.length === 0}">
+        <ion-label position="stacked">{{'Fustal' | translate}}</ion-label>
+        <ion-select #fustal [value]="selectedFustal" (ionChange)="updateFustal(fustal.value)">
+          <ion-select-option *ngFor="let grupo of gruposFustal" [value]="grupo.idGrupoFustal">
+            {{grupo.grupoFustal + '.- ' + grupo.descripcion}}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-col>
+    <ion-col size="1">
+      <span title="{{'Borrar' | translate}} " (click)="deselectGrupoFustal()">
+        <mat-icon class="red-icon remove-select">delete_outline</mat-icon>
+      </span>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col size="11">
+      <ion-item [ngClass]="{'readonly': gruposLatizal.length === 0}">
+        <ion-label position="stacked">{{'Latizal' | translate}}</ion-label>
+        <ion-select #latizal [value]="selectedLatizal" (ionChange)="updateLatizal(latizal.value)">
+          <ion-select-option *ngFor="let grupo of gruposLatizal" [value]="grupo.idGrupoLatizal">
+            {{grupo.grupoLatizal + '.- ' + grupo.descripcion}}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-col>
+    <ion-col size="1">
+      <span title="{{'Borrar' | translate}} " (click)="deselectGrupoLatizal()">
+        <mat-icon class="red-icon remove-select">delete_outline</mat-icon>
+      </span>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col size="11">
+      <ion-item [ngClass]="{'readonly': gruposMontebravo.length === 0}">
+        <ion-label position="stacked">{{'Montebravo' | translate}}</ion-label>
+        <ion-select #montebravo [value]="selectedMontebravo" (ionChange)="updateMontebravo(montebravo.value)">
+          <ion-select-option *ngFor="let grupo of gruposMontebravo" [value]="grupo.idGrupoMontebravo">
+            {{grupo.grupoMontebravo + '.- ' + grupo.descripcion}}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-col>
+    <ion-col size="1">
+      <span title="{{'Borrar' | translate}} " (click)="deselectGrupoMontebravo()">
+        <mat-icon class="red-icon remove-select">delete_outline</mat-icon>
+      </span>
+    </ion-col>
+  </ion-row>
+
+  <div class="table-container mat-elevation-z8">
+    <table mat-table [dataSource]="cnvrsList">
+      <ng-container matColumnDef="recurso">
+        <th mat-header-cell *matHeaderCellDef> {{'Recurso' | translate}} </th>
+        <td mat-cell *matCellDef="let element"> {{element.idRecursoForestal.descripcion }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="hectareas">
+        <th mat-header-cell *matHeaderCellDef> {{'Hectareas' | translate}} </th>
+        <td mat-cell *matCellDef="let element"> {{element.hectareas }} </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+      <tr mat-row (click)="open(row)" *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table> <loading [isLoading]="isLoading"></loading>
+  </div>
+</ion-grid>

@@ -1,0 +1,31 @@
+.table-container {
+    max-height: calc(100vh - 150px);
+    overflow: auto;
+    margin-top: 15px;
+}
+
+.mat-row:hover {
+    background-color: white;
+}
+
+
+@media (min-width: 600px) and (max-width: 799px) {
+    .ratios-container {
+        margin-left: 50px !important;
+        margin-right: 50px !important;
+    }
+}
+
+@media (min-width: 800px) and (max-width: 1450px) {
+    .ratios-container {
+        margin-left: 100px !important;
+        margin-right: 100px !important;
+    }
+}
+
+@media (min-width: 1451px) {
+    .ratios-container {
+        margin-left: 200px !important;
+        margin-right: 200px !important;
+    }
+}

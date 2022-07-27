@@ -1,0 +1,189 @@
+<!--<div mat-dialog-actions align="end">
+  <button mat-button (click)="close()">
+      <mat-icon class="red-icon">close</mat-icon>{{ 'Cancelar' | translate}}
+  </button>
+  <button mat-button cdkFocusInitial (click)="save()">
+      <mat-icon class="green-icon">save</mat-icon>{{ 'Guardar' | translate}}
+  </button>
+</div>-->
+<div #content class="contentData">
+  <div class="invoice-box">
+      <table cellpadding="0" cellspacing="0">
+          <tr class="top">
+              <td [attr.colspan]="colSpan">
+                  <table>
+                      <tr>
+                          <td class="title">
+                              <!--<img src="https://www.sparksuite.com/images/logo.png" style="width: 100%; max-width: 300px" />-->
+                              <img src="data:image/png;base64,{{base64Logo}}"
+                                  style="margin-left: -12px;width: 100%; max-width: 550px" />
+                              <!--<span>{{ 'TITULO_APP' | translate}}</span>-->
+                          </td>
+                      </tr>
+                      <tr class="details">
+                          <td class="titulo">{{ 'DESCRIPCION APP' | translate}}</td>
+                      </tr>
+                  </table>
+              </td>
+          </tr>
+
+          <tr class="information">
+              <td [attr.colspan]="colSpan">
+                  <table>
+                      <tr>
+                          <td class="subtitulo">
+                              {{'Listado de tablas' | translate}}
+                          </td>
+                          <td class="subtitulo">
+                              {{'Fecha' | translate}}: {{ today }}
+                          </td>
+                      </tr>
+                  </table>
+              </td>
+          </tr>
+      </table>
+      <table [attr.id]="'tableId' + zamifIndex" *ngFor="let zamif of data.selectedZamif;let zamifIndex = index">
+          <div class="separator"></div>
+          <tr class="details principal">
+              <td [attr.colspan]="colSpan">
+                  <!--&#9658;-->({{zamifIndex + 1}}) 
+                      <strong>ZAMIF:</strong> ({{ zamif.zamif }}) {{ zamif.descripcion }}
+              </td>
+          </tr>
+          <ng-container *ngIf="costeTablaVisible === true">
+              <tr class="heading principal">
+                  <td [attr.colspan]="colSpan"> {{'Coste de extinción promedio por hectárea' | translate}}</td>
+              </tr>
+              <tr class="heading centrar">
+                  <td colspan="2">{{'Hasta tamaño' | translate}}</td>
+                  <td colspan="2">{{'Costo hectarea' | translate: utilService.getMoneda()}}</td>
+              </tr>
+
+              <tr *ngFor="let cphs of cphsData[zamifIndex]; let i = index;" class="details centrar">
+                  <td colspan="2">{{ cphs.hastaHectareas }} </td>
+                  <td colspan="2">{{ cphs.costo }} </td>
+              </tr>
+          </ng-container>
+          <ng-container *ngIf="escapadosTablaVisible === true">
+              <tr class="espacio"></tr>
+              <tr class="espacio"></tr>
+              <tr class="heading principal">
+                  <td [attr.colspan]="colSpan">{{'Tabla de incendios escapados' | translate}}</td>
+              </tr>
+              <tr class="details">
+                  <td [attr.colspan]="colSpan">- {{'Grupo de comportamiento del fuego' | translate}}: ({{
+                      data.selectedGrupos[0].gdcf }}) {{ data.selectedGrupos[0].descripcion }}</td>
+              </tr>
+              <tr class="heading centrar">
+                  <td>{{'LR' | translate}}</td>
+                  <td>{{'Percentil' | translate}}</td>
+                  <td>{{'Intensidad' | translate}} 1</td>
+                  <td>{{'Intensidad' | translate}} 2</td>
+                  <td>{{'Intensidad' | translate}} 3</td>
+                  <td>{{'Intensidad' | translate}} 4</td>
+                  <td>{{'Intensidad' | translate}} 5</td>
+                  <td>{{'Intensidad' | translate}} 6</td>
+              </tr>
+              <tr *ngFor="let row of datosEscapados[zamifIndex]; let i = index;" class="details centrar">
+                  <td>({{ row.lugar.lr }}) {{ row.lugar.descripcion }} </td>
+                  <td>{{ row.percentil }} </td>
+                  <td>{{ row.intensidad1 }} </td>
+                  <td>{{ row.intensidad2 }} </td>
+                  <td>{{ row.intensidad3 }} </td>
+                  <td>{{ row.intensidad4 }} </td>
+                  <td>{{ row.intensidad5 }} </td>
+                  <td>{{ row.intensidad6 }} </td>
+              </tr>
+          </ng-container>
+          <ng-container *ngIf="tablaMaestraVisible === true">
+              <div *ngIf="escapadosTablaVisible === true" class="separator"></div>
+              <tr class="heading principal">
+                  <td [attr.colspan]="colSpan">{{'Inventario de medios' | translate}}</td>
+              </tr>
+              <tr class="details">
+                  <td [attr.colspan]="colSpan">
+                      <ul>
+                          <li *ngFor="let lr of datosTablaMaestra[zamifIndex]?.lugares;  let indexLr = index;"> LR
+                              {{indexLr + 1}}: ({{ lr.lr }}) {{ lr.descripcion }}</li>
+                      </ul>
+                  </td>
+              </tr>
+              <tr class="heading centrar">
+                  <td colspan="4">{{'Medio' | translate}}</td>
+                  <td></td>
+                  <td style="text-align: right;"
+                      *ngFor="let data of datosTablaMaestra[zamifIndex]?.lugares;  let indexLr = index;">
+                      {{'LR' | translate}}
+                      {{indexLr + 1}}</td>
+              </tr>
+              <ng-container *ngFor="let row of datosTablaMaestra[zamifIndex]?.data">
+                  <tr class="details centrar">
+                      <td rowspan="3" colspan="4">({{ row.medio.medio }}) {{ row.medio.descripcion }} </td>
+                      <td style="text-align: right;">{{'Rendimiento' | translate}}</td>
+                      <td style="text-align: right;" *ngFor="let lrData of row.medioData">
+                          {{lrData.rendimiento}}</td>
+                  </tr>
+                  <tr class="details centrar">
+                      <td style="text-align: right;">{{'Tiempo de llegada' | translate}}</td>
+                      <td style="text-align: right;" *ngFor="let lrData of row.medioData">
+                          {{lrData.tiempoLlegada}}</td>
+                  </tr>
+                  <tr class="details centrar">
+                      <td style="text-align: right;">{{'Costo unitario misión' | translate}} ({{ moneda }})</td>
+                      <td style="text-align: right;" *ngFor="let lrData of row.medioData">
+                          {{lrData.costoUnitarioPorMision}}</td>
+                  </tr>
+              </ng-container>
+          </ng-container>
+          <tr class="espacio"></tr>
+          <ng-container *ngIf="cnvrTablaVisible === true">
+              <div  *ngIf="tablaMaestraVisible === true || costeTablaVisible === true || escapadosTablaVisible === true" class="separator"></div>
+              <tr class="heading principal">
+                  <td [attr.colspan]="colSpan">{{'Cambio neto en el valor de los recursos' | translate}}</td>
+              </tr>
+              <ng-container *ngFor="let dataGrupo of datosCnvr[zamifIndex][0].grupos; let indexGrupo = index;">
+                  <div *ngIf="indexGrupo > 0 && datosCnvr[zamifIndex][0].grupos.length > 1" class="separator">
+                  </div>
+                  <tr class="details">
+                      <td [attr.colspan]="colSpan">- {{'Grupo CNVR' | translate}}: ({{ dataGrupo.grupo.grupoCnvr }}) {{
+                          dataGrupo.grupo.descripcion }} </td>
+                  </tr>
+                  <tr class="details">
+                      <td [attr.colspan]="colSpan">- {{'Lugares representativos' | translate}}: </td>
+                  </tr>
+                  <tr class="details">
+                      <td colspan="3">
+                          <ul>
+                              <li *ngFor="let data of dataGrupo.lugares">({{ data.lr }}) {{
+                                  data.descripcion }}</li>
+                          </ul>
+                      </td>
+                  </tr>
+                  <tr class="heading centrar">
+                      <td>{{'Recurso' | translate}}</td>
+                      <td>{{'Intensidad' | translate}} 1</td>
+                      <td>{{'Intensidad' | translate}} 2</td>
+                      <td>{{'Intensidad' | translate}} 3</td>
+                      <td>{{'Intensidad' | translate}} 4</td>
+                      <td>{{'Intensidad' | translate}} 5</td>
+                      <td>{{'Intensidad' | translate}} 6</td>
+                  </tr>
+                  <tr *ngFor="let row of dataGrupo.intensidadesData" class="details centrar">
+                      <td>({{ row.recurso }}) </td>
+                      <td>{{ row.intensidad1 }} </td>
+                      <td>{{ row.intensidad2 }} </td>
+                      <td>{{ row.intensidad3 }} </td>
+                      <td>{{ row.intensidad4 }} </td>
+                      <td>{{ row.intensidad5 }} </td>
+                      <td>{{ row.intensidad6 }} </td>
+                  </tr>
+                  <tr class="details centrar border-top">
+                      <td><strong>Total</strong></td>
+                      <td *ngFor="let total of dataGrupo.total">{{ total }}
+                      </td>
+                  </tr>
+              </ng-container>
+          </ng-container>
+      </table>
+  </div>
+</div>

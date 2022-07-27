@@ -1,0 +1,96 @@
+<ion-grid fixed>
+  <ion-row>
+    <ion-col size="12">
+      <ion-item>
+      <ion-label position="stacked">{{'Grupos de medios' | translate}} (*)</ion-label>
+      <ion-select #grupo [value]="selectedGrupoMedio" (ionChange)="changeGrupoMedio($event)">
+        <ion-select-option *ngFor="let grupo of grupoMedios" [value]="grupo.idGrupoMedios">
+          {{grupo.grupoMedios + '.- ' + grupo.descripcion}}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col size="12">
+      <ion-item>
+        <ion-label position="stacked">{{'Tipo de medios' | translate}} (*)</ion-label>
+        <ion-select #fustal [value]="selectedCategoria" (ionChange)="changeTipoMedio($event); changeMedio()">
+          <ion-select-option *ngFor="let categoria of categoriasMedios" [value]="categoria.idCategoriaMedios">
+            {{categoria.categoriaMedios + '.- ' + categoria.descripcion}}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col size="12">
+      <ion-item>
+        <ion-label position="stacked">{{'Enviar como' | translate}} (*)</ion-label>
+        <ion-select #enviar [value]="selectedAgrupacion" (ionChange)="changeAgrupacion($event); changeMedio()">
+          <ion-select-option *ngFor="let agrupacion of agrupacionesMedios" [value]="agrupacion.idDre">
+            {{agrupacion.dre + '.- ' + agrupacion.descripcion}}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col size="12">
+      <ion-item>
+        <ion-label position="stacked">{{'Base' | translate}} (*)</ion-label>
+        <ion-select #base [value]="selectedBase" (ionChange)="changeBase($event); changeMedio()">
+          <ion-select-option *ngFor="let base of bases" [value]="base.idBase">
+            {{base.base + '.- ' + base.descripcion}}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col size="12">
+      <ion-radio-group [value]="selectedTipoUnidad" (ionChange)="changeTipoUnidadSelected($event); changeMedio()">
+        <ion-list-header>
+          <ion-label>{{'Tipo de unidad' | translate}}</ion-label>
+        </ion-list-header>
+
+        <ion-item>
+          <ion-label>{{'Vehículo cisterna' | translate}}</ion-label>
+          <ion-radio slot="start" value="1"></ion-radio>
+        </ion-item>
+    
+        <ion-item>
+          <ion-label>{{'Vehículo descargas aereas' | translate}}</ion-label>
+          <ion-radio slot="start" value="2"></ion-radio>
+        </ion-item>
+    
+        <ion-item>
+          <ion-label>{{'Resto de tipos' | translate}}</ion-label>
+          <ion-radio slot="start" value="3"></ion-radio>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>{{'No se envían' | translate}}</ion-label>
+          <ion-radio slot="start" value="4"></ion-radio>
+        </ion-item>
+      </ion-radio-group>
+    </ion-col>
+  </ion-row>
+
+  <ion-row *ngIf="selectedTipoUnidad == '2' || selectedTipoUnidad == '3'">
+    <ion-col size="12">
+      <ion-item>
+        <ion-label position="stacked">{{'Tipo de aeronave' | translate}}</ion-label>
+        <ion-select #fustal [value]="selectedTipoAeronave" (ionChange)="changeTipoAeronave($event); changeMedio()">
+          <ion-select-option *ngFor="let tipo of tipoAeronaves" [value]="tipo.idTipoAeronave">
+            {{tipo.idTipoAeronave + '.- ' + tipo.tipoAeronave}}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+</ion-grid>

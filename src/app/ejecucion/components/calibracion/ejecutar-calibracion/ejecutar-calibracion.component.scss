@@ -1,0 +1,19 @@
+.mat-row .selected {
+    background-color: rgb(180, 180, 92);
+}
+
+.row{
+    margin-right: 5px !important;
+}
+
+.btn-ejecutar{
+    background-color: rgb(211, 211, 111);
+    margin-right: 5px;
+    margin-top: 10px;
+    float: right;
+}
+
+.table-container {
+    max-height: calc(100vh - 400px);
+    overflow: auto;
+}

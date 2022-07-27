@@ -1,0 +1,100 @@
+<ion-grid fixed class="grid-notoolbar">
+  <!--<div mat-dialog-actions align="end">
+    <button mat-button (click)="generar(); getInventarioMedios()">
+      <mat-icon class="blue-icon">build</mat-icon>{{'Generar inventario' | translate}}
+    </button>
+    <button mat-button cdkFocusInitial (click)="saveData()">
+      <mat-icon class="green-icon">save</mat-icon>{{'Grabar' | translate}}
+    </button>
+  </div>-->
+  <ion-row>
+    <ion-col sizeMd="6" sizeSm="6" sizeXs="12">
+      <ion-item>
+        <ion-label position="stacked">{{'Zamif' | translate}}</ion-label>
+        <ion-select #selectZamif [value]="selectedZamif" (ionChange)="updateZamif(selectZamif.value)">
+          <ion-select-option *ngFor="let zamif of zamifList" [value]="zamif.idZamif">
+            {{zamif.zamif + '.- ' + zamif.descripcion}}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-col>
+    <ion-col ssizeMd="6" sizeSm="6" sizeXs="12">
+      <ion-item>
+        <ion-label position="stacked">{{'LR' | translate}}</ion-label>
+        <ion-select #selectLr [value]="selectedLr" (ionChange)="updateLr(selectLr.value)">
+          <ion-select-option *ngFor="let lr of lrList" [value]="lr.idLr">
+            {{lr.lr + '.- ' + lr.descripcion}}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <div class="table-container mat-elevation-z8">
+    <table mat-table [dataSource]="inventarioMediosData">
+      <ng-container matColumnDef="medio" sticky>
+        <th mat-header-cell *matHeaderCellDef> {{'Medio de combate' | translate}} </th>
+        <td mat-cell *matCellDef="let element" class="no-wrap-column sticky-column">
+          {{"(" + element.idMedio.medio + ") " + element.idMedio.descripcion}}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="rendimiento">
+        <th mat-header-cell *matHeaderCellDef> {{'Rendimiento' | translate}} </th>
+        <td mat-cell *matCellDef="let element">
+          <mat-form-field appearance="fill" floatLabel="always">
+            <input type="number" required matInput [(ngModel)]="element.rendimiento" (change)="isChanged()">
+          </mat-form-field>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="llegada">
+        <th mat-header-cell *matHeaderCellDef> {{'Tiempo de llegada'| translate}} </th>
+        <td mat-cell *matCellDef="let element">
+          <mat-form-field appearance="fill" floatLabel="always">
+            <input type="number" required matInput [(ngModel)]="element.tiempoLlegada" (change)="isChanged()">
+          </mat-form-field>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="coste unitario">
+        <th mat-header-cell *matHeaderCellDef> {{'Coste unitario por misión'| translate: utilService.getMoneda()}} </th>
+        <td mat-cell *matCellDef="let element">
+          <mat-form-field appearance="fill" floatLabel="always">
+            <input type="number" required matInput [(ngModel)]="element.costoUnitarioPorMision" (change)="isChanged()">
+          </mat-form-field>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="tiempo recarga">
+        <th mat-header-cell *matHeaderCellDef> {{'Tiempo de recarga'| translate}} </th>
+        <td mat-cell *matCellDef="let element">
+          <mat-form-field appearance="fill" floatLabel="always">
+            <input type="number" required matInput [(ngModel)]="element.tiempoRecarga" (change)="isChanged()">
+          </mat-form-field>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="coste recarga">
+        <th mat-header-cell *matHeaderCellDef> {{'Coste recarga'| translate: utilService.getMoneda()}} </th>
+        <td mat-cell *matCellDef="let element">
+          <mat-form-field appearance="fill" floatLabel="always">
+            <input type="number" required matInput [(ngModel)]="element.costoRecarga" (change)="isChanged()">
+          </mat-form-field>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="rendimiento recarga">
+        <th mat-header-cell *matHeaderCellDef> {{'Rendimiento de recarga'| translate}} </th>
+        <td mat-cell *matCellDef="let element">
+          <mat-form-field appearance="fill" floatLabel="always">
+            <input type="number" required matInput [(ngModel)]="element.rendimientoRecargas" (change)="isChanged()">
+          </mat-form-field>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </div>
+</ion-grid>

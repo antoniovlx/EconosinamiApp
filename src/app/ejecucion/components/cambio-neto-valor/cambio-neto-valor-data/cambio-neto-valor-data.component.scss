@@ -1,0 +1,32 @@
+.mat-row:hover {
+    background-color: white;
+}
+
+.table-container {
+    max-height: calc(100vh - 300px);
+    overflow: auto;
+}
+
+table .mat-form-field {
+    width: 70%;
+    text-align: center;
+    margin-left: -45px;
+    margin-right: -45px;
+}
+
+
+.btn-calcular{
+    background-color: rgb(211, 211, 111);
+    height: 40px;
+    margin-top:10px;
+    margin-left:20px;
+    //position: relative;
+}
+
+@media(max-width: 600px) {
+    .btn-calcular{
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+}
+ 

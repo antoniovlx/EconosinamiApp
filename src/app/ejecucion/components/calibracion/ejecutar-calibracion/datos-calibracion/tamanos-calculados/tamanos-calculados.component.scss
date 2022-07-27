@@ -1,0 +1,10 @@
+.table-container {
+    margin-top: 10px;
+    max-height: calc(100vh - 300px);
+    overflow: auto;
+}
+
+.mat-row:hover {
+    background-color: white;
+    cursor: default;
+}

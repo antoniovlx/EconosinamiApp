@@ -1,0 +1,139 @@
+<!--<div mat-dialog-actions align="end">
+  <button mat-button (click)="close()">
+      <mat-icon class="red-icon">close</mat-icon>{{ 'Cancelar' | translate}}
+  </button>
+  <button mat-button cdkFocusInitial (click)="save()">
+      <mat-icon class="green-icon">save</mat-icon>{{ 'Guardar' | translate}}
+  </button>
+</div>-->
+<div #content class="contentData">
+<div class="invoice-box">
+    <table cellpadding="0" cellspacing="0">
+        <tr class="top">
+            <td [attr.colspan]="colSpan">
+                <table>
+                    <tr>
+                        <td class="title">
+                            <img src="data:image/png;base64,{{base64Logo}}"
+                                style="margin-left: -12px;width: 100%; max-width: 550px" />
+                        </td>
+                    </tr>
+                    <tr class="details">
+                        <td class="titulo">{{ 'DESCRIPCION APP' | translate}}</td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+
+        <tr class="information">
+            <td [attr.colspan]="colSpan">
+                <table>
+                    <tr>
+                        <td class="subtitulo">
+                            {{ 'Hoja de resultados' | translate}}
+                        </td>
+                        <td class="subtitulo">
+                            {{ 'Fecha' | translate}}: {{ today }}
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+    <table [attr.id]="'tableId' + i" *ngFor="let gdcf of data.selectedGrupos;let i = index">
+        <div class="separator"></div>
+        <tr class="heading principal">
+            <td [attr.colspan]="colSpan">
+                {{ 'Grupo de comportamiento del fuego' | translate}}: ({{ gdcf.gdcf }}) {{
+                gdcf.descripcion }}</td>
+        </tr>
+        <tr class="details">
+            <td [attr.colspan]="colSpan">- {{ 'Datos' | translate}}: {{ tipoResultado | translate}}</td>
+        </tr>
+
+        <tr class="details">
+            <td [attr.colspan]="colSpan">
+                <ul>
+                    <li *ngFor="let opcion of listaOpciones; let i = index;">
+                        {{ 'Opción' | translate}} {{i + 1}}: ({{ opcion.opcion}}) {{ opcion.descripcion}}</li>
+                </ul>
+            </td>
+        </tr>
+
+        <tr class="item">
+            <td></td>
+        </tr>
+        <tr class="item">
+            <td></td>
+        </tr>
+
+        <tr class="heading">
+            <td [attr.colspan]="colSpan"> {{ 'Importes según tipos de medios y opciones' | translate}} ({{moneda}})</td>
+        </tr>
+
+        <tr class="heading">
+            <td>{{ 'Categoría' | translate}}</td>
+            <td *ngFor="let opcion of listaOpciones; let i = index;">{{ 'Opción' | translate}} {{ i + 1 }} ({{moneda}})</td>
+        </tr>
+
+        <tr *ngFor="let tipo of data.dataCategoriaMedios; let i = index;" class="item">
+            <td>{{tipo.codDesc}}</td>
+            <td *ngFor="let presupuesto of tipo.presupuesto; let i = index;">{{ presupuesto }}</td>
+        </tr>
+
+        <!-- Resúmenes -->
+        <tr class="top-width">
+            <td class="bold">{{ 'Presupuesto utilizado' | translate}} ({{moneda}}): </td>
+            <td *ngFor="let opcion of listaOpciones; let i = index;">
+                {{opcion.presupuesto }}</td>
+        </tr>
+        <tr>
+            <td class="bold">{{ 'Costo extinción' | translate}} ({{moneda}}): </td>
+            <td *ngFor="let opcion of listaOpciones; let i = index;">{{opcion.costo}}</td>
+        </tr>
+        <tr>
+            <td class="bold">{{ 'Cambio neto en el valor de los recursos' | translate}}  </td>
+            <td *ngFor="let opcion of listaOpciones; let i = index;">{{opcion.cnvr}}</td>
+        </tr>
+        <tr>
+            <td class="bold">Total: ({{moneda}}): </td>
+            <td *ngFor="let opcion of listaOpciones; let i = index;">{{opcion.total}}</td>
+        </tr>
+        <tr class="top-width">
+            <td class="bold">{{ 'Superficie' | translate}}: </td>
+            <td *ngFor="let opcion of listaOpciones; let i = index;">{{opcion.superficie | number: '0.1-2'}}
+            </td>
+        </tr>
+        <tr class="top-width">
+            <td class="bold">{{ 'Simulaciones (escapadas)' | translate}}: </td>
+            <td *ngFor="let opcion of listaOpciones; let i = index;"><span
+                    class="blue">{{opcion.numSimulaciones}}</span> <span
+                    class="red">({{opcion.numEscapados}})</span></td>
+        </tr>
+
+        <tr class="item">
+            <td></td>
+        </tr>
+        <tr class="item">
+            <td></td>
+        </tr>
+
+        <!-- Número de medios-->
+        <tr class="heading">
+            <td [attr.colspan]="colSpan"> {{ 'Número de medios según tipo de medios y opciones' | translate}}
+            </td>
+        </tr>
+
+        <tr class="heading">
+            <td>{{ 'Categoría' | translate}}</td>
+            <td *ngFor="let opcion of listaOpciones; let i = index;">{{ 'Opción' | translate}} {{ i + 1 }}</td>
+        </tr>
+
+        <tr *ngFor="let tipo of data.dataCategoriaMedios; let i = index;" class="item">
+            <td>{{tipo.codDesc}}</td>
+            <td *ngFor="let cantidad of tipo.cantidad; let i = index;">{{ cantidad }}</td>
+        </tr>
+        <br>
+    </table>
+</div>
+</div>

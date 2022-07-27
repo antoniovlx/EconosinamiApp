@@ -1,0 +1,30 @@
+th.mat-header-cell,
+td.mat-cell {
+    text-align: center;
+    border: 1px solid rgb(116, 116, 116);
+    padding: 0 !important;
+}
+
+.mat-column-intensidad {
+    width: 100px;
+}
+
+.mat-column-numerofuegos {
+    width: 100px;
+}
+
+.table-container {
+    max-height: calc(100vh - 220px);
+    overflow: auto;
+}
+
+.mat-row:hover {
+    background-color: white;
+    cursor: default;
+}
+
+.btn-escapados{
+    background-color: rgb(211, 211, 111);
+    height: 40px;
+    margin-top:13px;
+}

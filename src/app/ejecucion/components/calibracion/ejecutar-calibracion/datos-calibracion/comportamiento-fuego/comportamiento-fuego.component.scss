@@ -1,0 +1,55 @@
+th.mat-header-cell,
+td.mat-cell {
+    text-align: center;
+    border: 1px solid rgb(116, 116, 116);
+    padding: 0 !important;
+}
+
+.mat-column-intensidad {
+    min-width: 80px;
+}
+
+.mat-column-numerofuegos {
+    max-width: 100px;
+}
+
+.mat-column-50perc {
+    max-width: 100px;
+}
+
+.mat-column-90perc {
+    max-width: 100px;
+}
+
+.mat-column-intensidad1, .mat-column-intensidad2,
+.mat-column-intensidad3, .mat-column-intensidad4, .mat-column-intensidad5, .mat-column-intensidad6 {
+    max-width: 80px;
+}
+
+.table-container {
+    margin-top: 10px;
+    max-height: calc(100vh - 220px);
+    overflow: auto;
+}
+
+.mat-row:hover {
+    background-color: white;
+    cursor: default;
+}
+
+.total-fuegos{
+    margin-top: 10px;
+    font-weight: 500;
+}
+
+.historico{
+    font-weight: 500;
+}
+
+.diferencia{
+    font-weight: 500;
+}
+
+.less-margin{
+    margin-right: 0px !important;
+}

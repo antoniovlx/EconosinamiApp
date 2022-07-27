@@ -1,0 +1,165 @@
+<ion-grid fixed>
+  <!--<div mat-dialog-actions align="end">
+    <button mat-button (click)="cancelar()">
+      <mat-icon class="red-icon">close</mat-icon>{{'Cancelar' | translate}}
+    </button>
+    <button mat-button cdkFocusInitial (click)="guardar()" [disabled]="codigo.value == '' || descripcion.value == ''">
+      <mat-icon class="green-icon">done</mat-icon>{{'Guardar' | translate}}
+    </button>
+  </div>-->
+  <ion-row>
+    <ion-col sizeMd="3" sizeSm="3" sizeXs="12">
+      <ion-item>
+        <ion-label position="stacked">{{'Código' | translate}} (*)</ion-label>
+        <ion-input #codigo required [(ngModel)]="grupoMedios.grupoMedios" (ionChange)="setButtons()"></ion-input>
+      </ion-item>
+    </ion-col>
+    <ion-col sizeMd="6" sizeSm="9" sizeXs="12">
+      <ion-item>
+        <ion-label position="stacked">{{'Descripción' | translate}} (*)</ion-label>
+        <ion-input #descripcion required [(ngModel)]="grupoMedios.descripcion" (ionChange)="setButtons()"></ion-input>
+      </ion-item>
+    </ion-col>
+    <ion-col sizeMd="3" sizeSm="12" sizeXs="12">
+      <button mat-button (click)="openRatiosData()" class="button-ratios">
+        <mat-icon class="blue-icon">remove_red_eye</mat-icon> {{'Producción' | translate}}
+      </button>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col sizeMd="6" sizeSm="6">
+      <ion-item>
+        <ion-label position="stacked">{{'Demora en inicio' | translate}} (*)</ion-label>
+        <ion-input required type="number" [(ngModel)]="grupoMedios.demoraInicio" (ionChange)="setButtons()"></ion-input>
+      </ion-item>
+    </ion-col>
+
+    <ion-col sizeMd="6" sizeSm="6">
+      <ion-item>
+        <ion-label position="stacked">{{'Velocidad desplazamiento' | translate}} (*)</ion-label>
+        <ion-input required type="number" [(ngModel)]="grupoMedios.velocidad" (ionChange)="setButtons()"></ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col size="12">
+      <ion-item>
+        <ion-label position="stacked">{{'Tipo de medios' | translate}} (*)</ion-label>
+        <ion-select #fustal [value]="selectedCategoria"(ionChange)="changeTipoMedio($event)">
+          <ion-select-option *ngFor="let categoria of categorias" [value]="categoria.idCategoriaMedios">
+            {{categoria.categoriaMedios + '.- ' + categoria.descripcion}}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col size="12">
+      <ion-item>
+        <ion-label position="stacked">{{'Enviar como' | translate}} (*)</ion-label>
+        <ion-select #fustal [value]="selectedAgrupacion" (ionChange)="changeAgrupacion($event)">
+          <ion-select-option *ngFor="let agrupacion of agrupaciones" [value]="agrupacion.idDre">
+            {{agrupacion.dre + '.- ' + agrupacion.descripcion}}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col size="12">
+      <ion-radio-group [value]="selectedTipoUnidad" (ionChange)="changeTipoUnidadSelected($event)">
+        <ion-list-header>
+          <ion-label>{{'Tipo de unidad' | translate}}</ion-label>
+        </ion-list-header>
+
+        <ion-item>
+          <ion-label>{{'Vehículo cisterna' | translate}}</ion-label>
+          <ion-radio slot="start" value="1"></ion-radio>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>{{'Vehículo descargas aereas' | translate}}</ion-label>
+          <ion-radio slot="start" value="2"></ion-radio>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>{{'Resto de tipos' | translate}}</ion-label>
+          <ion-radio slot="start" value="3"></ion-radio>
+        </ion-item>
+      </ion-radio-group>
+    </ion-col>
+  </ion-row>
+
+  <ion-row *ngIf="selectedTipoUnidad == '2' || selectedTipoUnidad == '3'">
+    <ion-col size="12">
+      <ion-item>
+        <ion-label position="stacked">{{'Otro' | translate}}</ion-label>
+        <ion-select #fustal [value]="selectedTipoAeronave" (ionChange)="changeTipoAeronaveSelected($event)">
+          <ion-select-option *ngFor="let tipo of tipoAeronaves" [value]="tipo.idTipoAeronave">
+            {{tipo.idTipoAeronave + '.- ' + tipo.tipoAeronave}}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <ion-row *ngIf="selectedTipoUnidad == '2' || selectedTipoUnidad == '3'">
+    <ion-col size="12">
+      <ion-item>
+        <ion-label position="stacked">{{'Número máximo de descargas' | translate}} (*)</ion-label>
+        <ion-input type="number" [(ngModel)]="grupoMedios.maximoDescargas"></ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <ion-row *ngIf="selectedTipoUnidad == '3'">
+    <ion-col sizeMd="6" sizeSm="12">
+      <ion-item>
+        <ion-label position="stacked">{{'Tiempo para relleno' | translate}}</ion-label>
+        <ion-input type="number" [(ngModel)]="grupoMedios.tiempoParaRelleno"></ion-input>
+      </ion-item>
+    </ion-col>
+    <ion-col sizeMd="6" sizeSm="12">
+      <ion-item>
+        <ion-label position="stacked">{{'Número de personas que trabajan durante el relleno' | translate}}</ion-label>
+        <ion-input type="number" [(ngModel)]="grupoMedios.numPersonasEnRelleno"></ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col size="12">
+      <ion-item>
+        <ion-label position="stacked">{{'Intensidad mínima de activación del medio' | translate}}</ion-label>
+        <ion-input type="number" [(ngModel)]="grupoMedios.intensidadActivacion"></ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <titulo-apartado [imagePath]="'./assets/img/cantidad.png'" [titulo]="'Coste unitario por misión'">
+  </titulo-apartado>
+  <ion-row>
+    <ion-col sizeMd="4" sizeSm="6" sizeXs="4">
+      <ion-item>
+        <ion-label position="stacked">{{'Coste básico' | translate: util.getMoneda()}}</ion-label>
+        <ion-input type="number" [(ngModel)]="grupoMedios.costeBasico"></ion-input>
+      </ion-item>
+    </ion-col>
+    <ion-col sizeMd="4" sizeSm="6" sizeXs="4">
+      <ion-item>
+        <ion-label position="stacked">{{'Coste adicional' | translate: util.getMoneda()}}</ion-label>
+        <ion-input type="number" [(ngModel)]="grupoMedios.incrementoPorKm"></ion-input>
+      </ion-item>
+    </ion-col>
+    <ion-col sizeMd="4" sizeSm="6" sizeXs="4">
+      <ion-item>
+        <ion-label position="stacked">{{'Coste recarga' | translate: util.getMoneda()}}</ion-label>
+        <ion-input type="number" [(ngModel)]="grupoMedios.costePorRecarga"></ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+</ion-grid>

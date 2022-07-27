@@ -1,0 +1,36 @@
+.mat-row:hover {
+    background-color: white;
+}
+
+.row{
+    margin-right: 5px !important;
+}
+
+.table-container {
+    max-height: calc(100vh - 400px);
+    overflow: auto;
+}
+
+table .mat-form-field {
+    width: 50%;
+    text-align: center;
+    margin-left: -45px;
+    margin-right: -45px;
+}
+
+.btn-preparar{
+    background-color: rgb(211, 211, 111);
+    height: 40px;
+    margin-top:10px;
+    margin-left:20px;
+    //position: relative;
+}
+
+@media(max-width: 600px) {
+    .btn-preparar{
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+}
+ 
+

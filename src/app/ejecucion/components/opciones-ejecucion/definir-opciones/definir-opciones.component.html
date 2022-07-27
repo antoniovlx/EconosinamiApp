@@ -1,0 +1,37 @@
+<div class="table-container mat-elevation-z8">
+  <table mat-table [dataSource]="opcionesList">
+      <ng-container matColumnDef="select">
+          <th mat-header-cell *matHeaderCellDef>
+              <mat-checkbox (change)="$event ? masterToggle() : null"
+                  [checked]="selection.hasValue() && isAllSelected()"
+                  [indeterminate]="selection.hasValue() && !isAllSelected()" [aria-label]="checkboxLabel()">
+              </mat-checkbox>
+          </th>
+          <td mat-cell *matCellDef="let row">
+              <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null"
+                  [checked]="selection.isSelected(row)" [aria-label]="checkboxLabel(row)">
+              </mat-checkbox>
+          </td>
+      </ng-container>
+      <ng-container matColumnDef="codigo">
+          <th mat-header-cell *matHeaderCellDef> {{'Código' | translate}} </th>
+          <td mat-cell *matCellDef="let element"> {{element.opcion}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="descripcion">
+          <th mat-header-cell *matHeaderCellDef> {{'Descripción' | translate}} </th>
+          <td mat-cell *matCellDef="let element"> {{element.descripcion}} </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+      <tr mat-row (click)="open(row)" *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+</div>
+<div class="options">
+  <button (click)="open()" mat-raised-button>
+      <mat-icon class="green-icon">add</mat-icon> {{'Añadir opción' | translate}}
+  </button>
+  <button [disabled]="!isSelected()" (click)="delete()" mat-raised-button>
+      <mat-icon class="red-icon">delete</mat-icon> {{'Borrar opción' | translate}}
+  </button>
+</div>

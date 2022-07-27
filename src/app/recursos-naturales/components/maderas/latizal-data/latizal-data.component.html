@@ -1,0 +1,115 @@
+<!--<div mat-dialog-actions align="end">
+  <button mat-button cdkFocusInitial (click)="aceptar()"
+    [disabled]="codigoEspecie.value == ''">
+    <mat-icon class="green-icon">done</mat-icon>{{'Aceptar' | translate}}
+  </button>
+</div>-->
+<ion-grid fixed>
+  <ion-row>
+    <ion-col size="6">
+      <ion-item class="readonly">
+        <ion-label position="stacked">{{'Código' | translate}} (*)</ion-label>
+        <ion-input #codigoLatizal readonly required [(ngModel)]="zonaMadera.grupoLatizal"></ion-input>
+      </ion-item>
+    </ion-col>
+    <ion-col size="6">
+      <ion-item class="readonly">
+        <ion-label position="stacked">{{'Descripción' | translate}}</ion-label>
+        <ion-input #descripcionLatizal readonly required [(ngModel)]="zonaMadera.descripcion"></ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col size="12">
+      <ion-item>
+        <ion-label position="stacked">{{'Especies' | translate}} (*)</ion-label>
+        <ion-input #codigoEspecie readonly required [(ngModel)]="latizal.idEspecie.especie"></ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col size="6">
+      <ion-item>
+        <ion-label position="stacked">{{'Porcentaje total' | translate}}</ion-label>
+        <ion-input required type="number" [(ngModel)]="latizal.porcTotal"></ion-input>
+      </ion-item>
+    </ion-col>
+    <ion-col size="6">
+      <ion-item>
+        <ion-label position="stacked">{{'Incremento de medios por cada nivel de intensidad' | translate}}</ion-label>
+        <ion-input required type="number" [(ngModel)]="latizal.incrementoAnual"></ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col size="6">
+      <ion-item>
+        <ion-label position="stacked">{{'Valor metro' | translate: utilService.getMoneda()}}</ion-label>
+        <ion-input required type="number" [(ngModel)]="latizal.valorMetro3"></ion-input>
+      </ion-item>
+    </ion-col>
+    <ion-col size="6">
+      <ion-item class="readonly">
+        <ion-label position="stacked">{{'Valor calculado del m3' | translate: utilService.getMoneda()}}</ion-label>
+        <ion-input required type="number" readonly [(ngModel)]="valorMedioLatizal"></ion-input>
+      </ion-item>
+    </ion-col>
+
+    <ion-col size="12">
+      <ion-item>
+        <ion-label position="stacked">{{'Edad actual de la masa'}}</ion-label>
+        <ion-input required type="number" [(ngModel)]="latizal.edadMasa"></ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col size="6">
+      <ion-item>
+        <ion-label position="stacked">{{'Turno de corta' | translate}}</ion-label>
+        <ion-input required type="number" [(ngModel)]="latizal.edadFinal"></ion-input>
+      </ion-item>
+    </ion-col>
+
+    <ion-col size="6">
+      <ion-item>
+        <ion-label position="stacked">{{'Volumen final por Ha de la masa (m3)' | translate}}</ion-label>
+        <ion-input required type="number" [(ngModel)]="latizal.volumenFinal"></ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <div class="table-container mat-elevation-z8">
+    <table mat-table [dataSource]="latizal.intensidadLatizals">
+      <ng-container matColumnDef="intensidad">
+          <th mat-header-cell *matHeaderCellDef> {{'Intensidad' | translate}} </th>
+          <td mat-cell *matCellDef="let element"> {{element.intensidad }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="25%-75%">
+          <th mat-header-cell *matHeaderCellDef> {{'25%-75%' | translate}} </th>
+          <td mat-cell *matCellDef="let element">
+              <mat-form-field floatLabel="never">
+                  <input type="number" matInput [value]="element.entre25y75" [(ngModel)]="element.entre25y75">
+              </mat-form-field>
+          </td>
+      </ng-container>
+
+      <ng-container matColumnDef=">75%">
+          <th mat-header-cell *matHeaderCellDef> {{'>75%' | translate}} </th>
+          <td mat-cell *matCellDef="let element">
+              <mat-form-field floatLabel="never">
+                  <input type="number" matInput [value]="element.mas75" [(ngModel)]="element.mas75">
+              </mat-form-field>
+          </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+</div>
+
+</ion-grid>

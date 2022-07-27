@@ -1,0 +1,49 @@
+<ion-grid fixed>
+  <!--<div mat-dialog-actions align="end">
+    <button mat-button (click)="cancelar()">
+      <mat-icon class="red-icon">close</mat-icon>{{'Cancelar' | translate}}
+    </button>
+    <button mat-button cdkFocusInitial (click)="guardar()">
+      <mat-icon class="green-icon">done</mat-icon>{{'Guardar' | translate}}
+    </button>
+  </div>-->
+  <ion-row>
+    <ion-col size="6">
+      <ion-item class="readonly">
+        <ion-label position="stacked">{{'Código' | translate}} (*)</ion-label>
+        <ion-input readonly [(ngModel)]="zamif.zamif"></ion-input>
+      </ion-item>
+    </ion-col>
+    <ion-col size="6">
+      <ion-item class="readonly">
+        <ion-label position="stacked">{{'Descripción' | translate}}</ion-label>
+        <ion-input readonly [(ngModel)]="zamif.descripcion"></ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <div class="table-container mat-elevation-z8">
+    <table mat-table [dataSource]="cnvrLrList">
+        <ng-container matColumnDef="lr">
+            <th mat-header-cell *matHeaderCellDef> {{'Lugar representativo' | translate}} </th>
+            <td mat-cell *matCellDef="let element"> {{element.idLr.descripcion}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="grupocnvr">
+            <th mat-header-cell *matHeaderCellDef> {{'Grupo CNVR' | translate}} </th>
+            <td mat-cell *matCellDef="let element">
+                <mat-form-field appearance="fill" floatLabel="always">
+                    <mat-select [(value)]="element.idGrupoCnvr.idGrupoCnvr">
+                        <mat-option *ngFor="let grupo of gruposCnvr" [value]="grupo.idGrupoCnvr">
+                            {{grupo.grupoCnvr + '.- ' + grupo.descripcion}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+</div>
+</ion-grid>

@@ -1,0 +1,74 @@
+<ion-grid fixed>
+  <!--<div mat-dialog-actions align="end">
+    <button mat-button (click)="cancelar()">
+      <mat-icon class="red-icon">close</mat-icon>{{'Cancelar' | translate}}
+    </button>
+    <button mat-button cdkFocusInitial (click)="reload()">
+      <mat-icon class="blue-icon">refresh</mat-icon>{{'Recargar' | translate}}
+    </button>
+    <button mat-button cdkFocusInitial (click)="saveData()">
+      <mat-icon class="green-icon">done</mat-icon>{{'Guardar' | translate}}
+    </button>
+  </div>-->
+  <ion-row>
+    <ion-col size="12">
+      <ion-item class="readonly">
+        <ion-label position="stacked">{{'Zamif' | translate}} (*)</ion-label>
+        <ion-input readonly="">{{"(" + datos.zamif.zamif + ") " + datos.zamif.descripcion}}</ion-input>
+      </ion-item>
+    </ion-col>
+    <ion-col size="12">
+      <ion-item class="readonly">
+        <ion-label position="stacked">{{'Opción de ejecución' | translate}} (*)</ion-label>
+        <ion-input readonly>{{"(" +datos.idOpcion.opcion + ") " + datos.idOpcion.descripcion}}</ion-input>
+      </ion-item>
+    </ion-col>
+    <ion-col size="12">
+      <ion-item class="readonly">
+        <ion-label position="stacked">{{'Grupo de comportamiento del fuego' | translate}} (*)</ion-label>
+        <ion-input readonly>{{ "(" + datos.idGdcf.gdcf + ") " + datos.idGdcf.descripcion}}</ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+</ion-grid>
+
+<ion-toolbar>
+  <ion-segment [(ngModel)]="segment" color="warning">
+    <ion-segment-button value="0" (click)="segmentSelected(0)">
+      <ion-item class="tab-option">
+        <ion-thumbnail slot="start" class="tab-img">
+          <img src="./assets/img/fuegos-comportamiento.png">
+        </ion-thumbnail>
+        <ion-label>{{ 'Comportamiento del fuego' | translate}}</ion-label>
+      </ion-item>
+    </ion-segment-button>
+    <ion-segment-button value="1" (click)="segmentSelected(1)">
+      <ion-item class="tab-option">
+        <ion-thumbnail slot="start" class="tab-img">
+          <img src="./assets/img/fuegos-calculados.png">
+        </ion-thumbnail>
+        <ion-label>{{ 'Tamaños calculados' | translate}}</ion-label>
+      </ion-item>
+    </ion-segment-button>
+    <ion-segment-button value="2" (click)="segmentSelected(2)">
+      <ion-item class="tab-option">
+        <ion-thumbnail slot="start" class="tab-img">
+          <img src="./assets/img/fuegos-intensidad.png">
+        </ion-thumbnail>
+        <ion-label>{{ 'Fuegos según intensidad' | translate}}</ion-label>
+      </ion-item>
+    </ion-segment-button>
+  </ion-segment>
+</ion-toolbar>
+
+<ion-slides #slider [options]="slideOpts" (ionSlideDidChange)="slideChanged()" scrollbar="true">
+  <ion-slide>
+    <comportamiento-fuego (isDcfChanged)="updateDcf($event)" (isSZamifChanged)="updateSZamif($event)" (isEscapadosChanged)="updateEscapados($event)" [dcfAll]="dcfAll" [dataEscapados]="dataEscapados" [sZamif]="datos.sZamif"></comportamiento-fuego>
+  </ion-slide>
+  <ion-slide>
+    <tamanos-calculados [dataSource]="dataSourceCalculado"  [gdcf]="datos.idGdcf" [zamif]="datos.zamif"></tamanos-calculados>
+  </ion-slide>
+  <ion-slide>
+    <fuegos-intensidad [dataSourceHectareasQuemadas]="dataSourceHectareasQuemadas" [dataSourceNumeroFuegos]="dataSourceNumeroFuegos" [zamif]="datos.zamif" [sZamif]="datos.sZamif"></fuegos-intensidad>
+  </ion-slide>
+</ion-slides> 

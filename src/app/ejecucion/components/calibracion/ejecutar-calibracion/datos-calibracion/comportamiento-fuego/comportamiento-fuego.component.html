@@ -1,0 +1,190 @@
+<ion-grid fixed>
+  <ion-row class="less-margin">
+    <ion-col size="4" sizeMd="4" sizeXs="12">
+      <ion-row>
+        <ion-col size="12">
+          <ion-item class="readonly" style="margin-top: 10px">
+            <ion-label position="stacked">{{'Total' | translate}}:
+            </ion-label>
+            <ion-input readonly>{{ calcularTotal() }}</ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col class="historico" size="12">
+          <ion-item class="readonly">
+            <ion-label position="stacked">{{'Histórico' | translate}}:
+            </ion-label>
+            <ion-input readonly>{{ calcularHistorico() }}</ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col class="diferencia" size="12">
+          <ion-item class="readonly">
+            <ion-label position="stacked">{{'Diferencia' | translate}}:
+            </ion-label>
+            <ion-input readonly>{{ calcularDiferencia() }}</ion-input>
+          </ion-item>
+        </ion-col>
+
+        <ion-col class="diferencia" size="12">
+          <ion-item>
+            <ion-label position="stacked">{{'Área del incendio escapada' | translate}}:
+            </ion-label>
+            <ion-input type="number" (ionInput)="updateSZamif()" [(ngModel)]="sZamif.superficieEsc"></ion-input>
+          </ion-item>
+        </ion-col>
+
+        <ion-col class="diferencia" size="12">
+          <ion-item>
+            <ion-label position="stacked">{{'Número horas transcurridas al declararse escapado' | translate}}
+            </ion-label>
+            <ion-input type="number" (ionInput)="updateSZamif()" [(ngModel)]="sZamif.horasEsc"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+    </ion-col>
+    <ion-col size="8" sizeMd="8" sizeXs="12">
+      <div class="table-container mat-elevation-z8">
+        <table mat-table [dataSource]="dcfAll">
+          <ng-container matColumnDef="intensidad">
+            <th mat-header-cell *matHeaderCellDef> {{'Intensidad' | translate}} </th>
+            <td mat-cell *matCellDef="let element"> {{element.intensidad }} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="numerofuegos">
+            <th mat-header-cell *matHeaderCellDef> {{'Número de fuegos' | translate}} </th>
+            <td mat-cell *matCellDef="let element">
+              <mat-form-field floatLabel="never">
+                <input type="number" matInput [value]="element.numFuegos" [(ngModel)]="element.numFuegos"
+                  (input)="updateDcf()">
+              </mat-form-field>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="50perc">
+            <th mat-header-cell *matHeaderCellDef> {{'percentil' | translate}} 50 </th>
+            <td mat-cell *matCellDef="let element">
+              <mat-form-field floatLabel="never">
+                <input type="number" matInput [value]="element.velPropMax50pctl" [(ngModel)]="element.velPropMax50pctl"
+                  (input)="updateDcf()">
+              </mat-form-field>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="90perc">
+            <th mat-header-cell *matHeaderCellDef> {{'percentil' | translate}} 90 </th>
+            <td mat-cell *matCellDef="let element">
+              <mat-form-field floatLabel="never">
+                <input type="number" matInput [value]="element.velPropMax90pctl" [(ngModel)]="element.velPropMax90pctl"
+                  (input)="updateDcf()">
+              </mat-form-field>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="empty">
+            <th mat-header-cell *matHeaderCellDef [attr.colspan]="2"></th>
+          </ng-container>
+
+          <ng-container matColumnDef="velocidad">
+            <th mat-header-cell *matHeaderCellDef [attr.colspan]="2"> {{'Velocidad de propagación máxima' |
+              translate}}
+            </th>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="['empty','velocidad']"></tr>
+          <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+      </div>
+    </ion-col>
+    <ion-col size="12">
+      <div class="subtitulo-ventana">
+        <mat-icon class="arrow-right-icon">arrow_right</mat-icon><span>
+          {{'Incendios escapados' | translate}}</span>
+      </div>
+      <div class="table-container mat-elevation-z8">
+        <table mat-table [dataSource]="dataEscapados">
+          <ng-container matColumnDef="lugar">
+            <th mat-header-cell *matHeaderCellDef>{{'Lr' | translate}} </th>
+            <td mat-cell *matCellDef="let element"> {{element.lugar.lr}} </td>
+          </ng-container>
+          <ng-container matColumnDef="percentil">
+            <th mat-header-cell *matHeaderCellDef> {{'Percentil' | translate}} </th>
+            <td mat-cell *matCellDef="let element"> {{element.percentil}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="intensidad1">
+            <th mat-header-cell *matHeaderCellDef> {{'1' | translate}} </th>
+            <td mat-cell *matCellDef="let element">
+              <mat-form-field floatLabel="never">
+                <input type="number" matInput [value]="element.intensidad1" [(ngModel)]="element.intensidad1"
+                  (input)="updateEscapados()">
+              </mat-form-field>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="intensidad2">
+            <th mat-header-cell *matHeaderCellDef> {{'2' | translate}} </th>
+            <td mat-cell *matCellDef="let element">
+              <mat-form-field floatLabel="never">
+                <input type="number" matInput [value]="element.intensidad2" [(ngModel)]="element.intensidad2"
+                  (input)="updateEscapados()">
+              </mat-form-field>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="intensidad3">
+            <th mat-header-cell *matHeaderCellDef> {{'3' | translate}} </th>
+            <td mat-cell *matCellDef="let element">
+              <mat-form-field floatLabel="never">
+                <input type="number" matInput [value]="element.intensidad3" [(ngModel)]="element.intensidad3"
+                  (input)="updateEscapados()">
+              </mat-form-field>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="intensidad4">
+            <th mat-header-cell *matHeaderCellDef> {{'4' | translate}} </th>
+            <td mat-cell *matCellDef="let element">
+              <mat-form-field floatLabel="never">
+                <input type="number" matInput [value]="element.intensidad4" [(ngModel)]="element.intensidad4"
+                  (input)="updateEscapados()">
+              </mat-form-field>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="intensidad5">
+            <th mat-header-cell *matHeaderCellDef> {{'5' | translate}} </th>
+            <td mat-cell *matCellDef="let element">
+              <mat-form-field floatLabel="never">
+                <input type="number" matInput [value]="element.intensidad5" [(ngModel)]="element.intensidad5"
+                  (input)="updateEscapados()">
+              </mat-form-field>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="intensidad6">
+            <th mat-header-cell *matHeaderCellDef> {{'6' | translate}} </th>
+            <td mat-cell *matCellDef="let element">
+              <mat-form-field floatLabel="never">
+                <input type="number" matInput [value]="element.intensidad6" [(ngModel)]="element.intensidad6"
+                  (input)="updateEscapados()">
+              </mat-form-field>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="empty">
+            <th mat-header-cell *matHeaderCellDef [attr.colspan]="2"></th>
+          </ng-container>
+
+          <ng-container matColumnDef="intensidad">
+            <th mat-header-cell *matHeaderCellDef [attr.colspan]="6"> {{'Intensidad' | translate}}</th>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="['empty','intensidad']"></tr>
+          <tr mat-header-row *matHeaderRowDef="displayedColumnsEscapados; sticky: true"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumnsEscapados;"></tr>
+        </table>
+      </div>
+    </ion-col>
+
+  </ion-row>
+</ion-grid>

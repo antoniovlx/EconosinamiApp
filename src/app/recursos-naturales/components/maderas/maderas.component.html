@@ -1,0 +1,161 @@
+
+<ion-accordion-group value="fustal">
+    <ion-accordion value="fustal">
+        <ion-item slot="header" class="subtitulo-ventana">
+            <ion-label>
+                <ion-icon name="caret-forward-outline"></ion-icon>
+                {{'Fustal' | translate}}
+            </ion-label>
+        </ion-item>
+        <div slot="content">
+            <div class="total">
+                <span>{{'Total' | translate}}: {{ elementsFustal }} {{'Elementos' | translate}}</span>
+            </div>
+            <div #tablaFustal class="table-container mat-elevation-z8">
+                <table mat-table [dataSource]="grupoFustalList">
+                    <ng-container matColumnDef="select">
+                        <th mat-header-cell *matHeaderCellDef>
+                            <mat-checkbox (change)="$event ? masterToggle('fustal') : null"
+                                [checked]="selectionFustal.hasValue() && isAllSelected('fustal')"
+                                [indeterminate]="selectionFustal.hasValue() && !isAllSelected('fustal')" [aria-label]="checkboxLabelFustal()">
+                            </mat-checkbox>
+                        </th>
+                        <td mat-cell *matCellDef="let row">
+                            <mat-checkbox (click)="$event.stopPropagation()"
+                                (change)="$event ? selectionFustal.toggle(row) : null" [checked]="selectionFustal.isSelected(row)"
+                                [aria-label]="checkboxLabelFustal(row)">
+                            </mat-checkbox>
+                        </td>
+                    </ng-container>
+    
+                    <ng-container matColumnDef="codigo">
+                        <th mat-header-cell *matHeaderCellDef> {{'Código' | translate}} </th>
+                        <td mat-cell *matCellDef="let element"> {{ element.grupoFustal }} </td>
+                    </ng-container>
+    
+                    <ng-container matColumnDef="descripcion">
+                        <th mat-header-cell *matHeaderCellDef> {{'Descripción' | translate}} </th>
+                        <td mat-cell *matCellDef="let element"> {{element.descripcion}} </td>
+                    </ng-container>
+    
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+                    <tr mat-row (click)="open('fustal', row)" *matRowDef="let row; columns: displayedColumns;"></tr>
+                </table> <loading [isLoading]="isLoading1"></loading>
+            </div>
+            <div class="options">
+                <button (click)="open('fustal')" mat-raised-button>
+                    <mat-icon class="green-icon">add</mat-icon> <span>{{'Añadir zona' | translate}}</span>
+                </button>
+                <button [disabled]="!isSelected('fustal')" (click)="delete('fustal')" mat-raised-button>
+                    <mat-icon class="red-icon">delete</mat-icon> <span>{{'Borrar zona' | translate}}</span>
+                </button>
+            </div>
+        </div>
+    </ion-accordion>
+    <ion-accordion value="latizal">
+        <ion-item slot="header" class="subtitulo-ventana">
+            <ion-label>
+                <ion-icon name="caret-forward-outline"></ion-icon>
+                {{'Latizal'
+                | translate}}
+            </ion-label>
+        </ion-item>
+        <div slot="content">
+            <div class="total">
+                <span class="total">{{'Total' | translate}}: {{ elementsLatizal }} {{'Elementos' | translate}}</span>
+            </div>
+            <div #tablaLatizal class="table-container mat-elevation-z8">
+                <table mat-table [dataSource]="grupoLatizalList">
+                    <ng-container matColumnDef="select">
+                        <th mat-header-cell *matHeaderCellDef>
+                            <mat-checkbox (change)="$event ? masterToggle('latizal') : null"
+                                [checked]="selectionLatizal.hasValue() && isAllSelected('latizal')"
+                                [indeterminate]="selectionLatizal.hasValue() && !isAllSelected('latizal')" [aria-label]="checkboxLabelLatizal()">
+                            </mat-checkbox>
+                        </th>
+                        <td mat-cell *matCellDef="let row">
+                            <mat-checkbox (click)="$event.stopPropagation()"
+                                (change)="$event ? selectionLatizal.toggle(row) : null" [checked]="selectionLatizal.isSelected(row)"
+                                [aria-label]="checkboxLabelLatizal(row)">
+                            </mat-checkbox>
+                        </td>
+                    </ng-container>
+    
+                    <ng-container matColumnDef="codigo">
+                        <th mat-header-cell *matHeaderCellDef> {{'Código' | translate}} </th>
+                        <td mat-cell *matCellDef="let element"> {{ element.grupoLatizal }} </td>
+                    </ng-container>
+    
+                    <ng-container matColumnDef="descripcion">
+                        <th mat-header-cell *matHeaderCellDef> {{'Descripción' | translate}} </th>
+                        <td mat-cell *matCellDef="let element"> {{element.descripcion}} </td>
+                    </ng-container>
+    
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+                    <tr mat-row (click)="open('latizal', row)" *matRowDef="let row; columns: displayedColumns;"></tr>
+                </table> <loading [isLoading]="isLoading2"></loading>
+            </div>
+            <div class="options">
+                <button (click)="open('latizal')" mat-raised-button>
+                    <mat-icon class="green-icon">add</mat-icon> <span>{{'Añadir zona' | translate}}</span>
+                </button>
+                <button [disabled]="!isSelected('latizal')" (click)="delete('latizal')" mat-raised-button>
+                    <mat-icon class="red-icon">delete</mat-icon> <span>{{'Borrar zona' | translate}}</span>
+                </button>
+            </div>
+        </div>
+    </ion-accordion>
+    <ion-accordion value="montebravo">
+        <ion-item slot="header" class="subtitulo-ventana">
+            <ion-label>
+                <ion-icon name="caret-forward-outline"></ion-icon>
+                {{'Montebravo'
+                | translate}}
+            </ion-label>
+        </ion-item>
+        <div slot="content">
+            <div class="total">
+                <span class="total">{{'Total' | translate}}: {{ elementsMontebravo }} {{'Elementos' | translate}}</span>
+            </div>
+            <div #tablaMontebravo class="table-container mat-elevation-z8">
+                <table mat-table [dataSource]="grupoMontebravoList">
+                    <ng-container matColumnDef="select">
+                        <th mat-header-cell *matHeaderCellDef>
+                            <mat-checkbox (change)="$event ? masterToggle('montebravo') : null"
+                                [checked]="selectionMontebravo.hasValue() && isAllSelected('montebravo')"
+                                [indeterminate]="selectionMontebravo.hasValue() && !isAllSelected('montebravo')" [aria-label]="checkboxLabelMontebravo()">
+                            </mat-checkbox>
+                        </th>
+                        <td mat-cell *matCellDef="let row">
+                            <mat-checkbox (click)="$event.stopPropagation()"
+                                (change)="$event ? selectionMontebravo.toggle(row) : null" [checked]="selectionMontebravo.isSelected(row)"
+                                [aria-label]="checkboxLabelMontebravo(row)">
+                            </mat-checkbox>
+                        </td>
+                    </ng-container>
+    
+                    <ng-container matColumnDef="codigo">
+                        <th mat-header-cell *matHeaderCellDef> {{'Código' | translate}} </th>
+                        <td mat-cell *matCellDef="let element"> {{ element.grupoMontebravo }} </td>
+                    </ng-container>
+    
+                    <ng-container matColumnDef="descripcion">
+                        <th mat-header-cell *matHeaderCellDef> {{'Descripción' | translate}} </th>
+                        <td mat-cell *matCellDef="let element"> {{element.descripcion}} </td>
+                    </ng-container>
+    
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+                    <tr mat-row (click)="open('montebravo', row)" *matRowDef="let row; columns: displayedColumns;"></tr>
+                </table> <loading [isLoading]="isLoading3"></loading>
+            </div>
+            <div class="options">
+                <button (click)="open('montebravo')" mat-raised-button>
+                    <mat-icon class="green-icon">add</mat-icon> <span>{{'Añadir zona' | translate}}</span>
+                </button>
+                <button [disabled]="!isSelected('montebravo')" (click)="delete('montebravo')" mat-raised-button>
+                    <mat-icon class="red-icon">delete</mat-icon> <span>{{'Borrar zona' | translate}}</span>
+                </button>
+            </div>
+        </div>
+    </ion-accordion>
+</ion-accordion-group>

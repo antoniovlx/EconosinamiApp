@@ -1,0 +1,42 @@
+<ion-grid fixed>
+  <!--<div mat-dialog-actions align="end">
+    <button mat-button (click)="cancelar()">
+      <mat-icon class="red-icon">close</mat-icon>{{'Cancelar' | translate}}
+    </button>
+    <button mat-button cdkFocusInitial (click)="guardar()"
+      [disabled]="codigoMadera.value == '' || denominacionMadera.value == ''">
+      <mat-icon class="green-icon">done</mat-icon>{{'Guardar' | translate}}
+    </button>
+  </div>-->
+  <ion-row>
+    <ion-col size="6">
+      <ion-item>
+        <ion-label position="stacked">{{'Código' | translate}} (*)</ion-label>
+        <ion-input #codigoMadera required [(ngModel)]="codigo" (ionChange)="setButtons()"></ion-input>
+      </ion-item>
+    </ion-col>
+    <ion-col size="6">
+      <ion-item>
+        <ion-label position="stacked">{{'Descripción' | translate}} (*)</ion-label>
+        <ion-input #denominacionMadera required [(ngModel)]="madera.descripcion" (ionChange)="setButtons()"></ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+  <div class="table-container mat-elevation-z8">
+    <table mat-table [dataSource]="maderaData">
+      <ng-container matColumnDef="especie">
+        <th mat-header-cell *matHeaderCellDef> {{'Especies' | translate}} </th>
+        <td mat-cell *matCellDef="let element"> {{"(" + element.idEspecie.especie + ") " + element.idEspecie.descripcion
+          }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="porcentaje">
+        <th mat-header-cell *matHeaderCellDef> {{'Porcentaje total' | translate}} </th>
+        <td mat-cell *matCellDef="let element"> {{element.porcTotal }} </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+      <tr mat-row (click)="open(row)" *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table> <loading [isLoading]="isLoading"></loading>
+  </div>
+</ion-grid>

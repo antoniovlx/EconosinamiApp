@@ -1,0 +1,108 @@
+<ion-grid fixed>
+  <ion-row>
+    <ion-col sizeLg="6" sizeXs="12">
+      <ion-row>
+        <ion-col size="7">
+          <ion-item>
+            <ion-label position="stacked">{{'ZAMIF' | translate}}</ion-label>
+            <ion-select #selectZamif [value]="idZamifSelected" (ionChange)="updateZamif(selectZamif.value)">
+              <ion-select-option *ngFor="let zamif of zamifList" [value]="zamif.idZamif">
+                {{zamif.zamif + '-' + zamif.descripcion}}
+              </ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+        <ion-col size="5">
+          <button mat-button [disabled]="!cphsData.length" (click)="updateCostesZamif()" class="btn-actualizar">
+            <mat-icon class="green-icon">save</mat-icon><span>{{'Guardar' | translate}}</span>
+          </button>
+        </ion-col>
+      </ion-row>
+      <div class="table-container mat-elevation-z8">
+        <table mat-table [dataSource]="cphsData" id="cphTable">
+          <ng-container matColumnDef="tamannoHa">
+            <th mat-header-cell *matHeaderCellDef> {{'Hasta tamaño' | translate}} </th>
+            <td mat-cell *matCellDef="let element">
+              <mat-form-field floatLabel="never">
+                <input type="number" matInput [value]="element.hastaHectareas" [(ngModel)]="element.hastaHectareas">
+              </mat-form-field>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="costeHa">
+            <th mat-header-cell *matHeaderCellDef> {{'Costo por ha' | translate: util.getMoneda()}}</th>
+            <td mat-cell *matCellDef="let element">
+              <mat-form-field floatLabel="never">
+                <input type="number" matInput [value]="element.costo" [(ngModel)]="element.costo">
+              </mat-form-field>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table> <loading [isLoading]="isLoading"></loading>
+      </div>
+      <div class="demo-button-container">
+        <button mat-raised-button [disabled]="zamifList.length === 0" (click)="addCph()" class="demo-button" title="{{'Añadir fila' | translate}}">
+          <mat-icon class="green-icon">add</mat-icon>
+        </button>
+        <button mat-raised-button [disabled]="cphsData.length === 0" (click)="removeCph()" class="demo-button"
+          title="{{'Borrar fila' | translate}}">
+          <mat-icon class="red-icon">remove</mat-icon>
+        </button>
+      </div>
+    </ion-col>
+    <ion-col sizeLg="6" sizeXs="12">
+      <ion-row>
+        <ion-col size="7">
+          <ion-item>
+            <ion-label position="stacked">{{'Lugar representativo' | translate}}</ion-label>
+            <ion-select #selectLr [value]="idLrSelected" (ionChange)="updateLr(selectLr.value)">
+              <ion-select-option *ngFor="let lr of lrList" [value]="lr.idLr">
+                {{lr.lr + '-' + lr.descripcion}}
+              </ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+        <ion-col size="5">
+          <button mat-button [disabled]="!cphslrData.length" (click)="updateCostesLr()" class="btn-actualizar">
+            <mat-icon class="green-icon">save</mat-icon><span>{{'Guardar' | translate}}</span>
+          </button>
+        </ion-col>
+      </ion-row>
+      <div class="table-container mat-elevation-z8">
+        <table mat-table [dataSource]="cphslrData" id="cphlrTable">
+          <ng-container matColumnDef="tamannoHa">
+            <th mat-header-cell *matHeaderCellDef> {{'Hasta tamaño' | translate}} </th>
+            <td mat-cell *matCellDef="let element">
+              <mat-form-field floatLabel="never">
+                <input type="number" matInput [value]="element.hastaHectareas" [(ngModel)]="element.hastaHectareas">
+              </mat-form-field>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="costeHa">
+            <th mat-header-cell *matHeaderCellDef> {{'Costo por ha' | translate: util.getMoneda()}}</th>
+            <td mat-cell *matCellDef="let element">
+              <mat-form-field floatLabel="never">
+                <input type="number" matInput [value]="element.costo" [(ngModel)]="element.costo">
+              </mat-form-field>
+            </td>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table> <loading [isLoading]="isLoading"></loading>
+      </div>
+      <div class="demo-button-container">
+        <button mat-raised-button [disabled]="lrList.length === 0" (click)="addCphlr()" class="demo-button" title="{{'Añadir fila' | translate}}">
+          <mat-icon class="green-icon">add</mat-icon>
+        </button>
+        <button mat-raised-button [disabled]="!cphslrData.length" (click)="removeCphlr()" class="demo-button"
+          title="{{'Borrar fila' | translate}}">
+          <mat-icon class="red-icon">remove</mat-icon>
+        </button>
+      </div>
+
+    </ion-col>
+  </ion-row>
+</ion-grid>

@@ -1,0 +1,47 @@
+<!--<div mat-dialog-actions align="end">
+  <button mat-button (click)="close()">
+      <mat-icon class="red-icon">close</mat-icon>{{ 'Cancelar' | translate}}
+  </button>
+  <button mat-button cdkFocusInitial (click)="save()">
+      <mat-icon class="green-icon">save</mat-icon>{{ 'Guardar' | translate}}
+  </button>
+</div>-->
+<div id="chartCambioNeto" style="width: 100%">
+  <div class="invoice-box">
+      <table cellpadding="0" cellspacing="0">
+          <tr class="top">
+              <td [attr.colspan]="colSpan">
+                  <table>
+                      <tr>
+                          <td class="title">
+                              <!--<img src="https://www.sparksuite.com/images/logo.png" style="width: 100%; max-width: 300px" />-->
+                              <img src="data:image/png;base64,{{base64Logo}}"
+                                  style="margin-left: -12px;width: 100%; max-width: 550px" />
+                              <!--<span>{{ 'TITULO_APP' | translate}}</span>-->
+                          </td>
+                      </tr>
+                      <tr class="details">
+                          <td class="titulo">{{ 'DESCRIPCION APP' | translate}}</td>
+                      </tr>
+                  </table>
+              </td>
+          </tr>
+          <tr class="information">
+              <td [attr.colspan]="colSpan">
+                  <table>
+                      <tr>
+                          <td class="subtitulo">
+                              {{ 'Costo - Cambio neto en el valor de los recursos' | translate}}
+                          </td>
+                          <td class="subtitulo">
+                              {{ 'Fecha' | translate}}: {{ today }}
+                          </td>
+                      </tr>
+                  </table>
+              </td>
+          </tr>
+      </table>
+      <div style="font-size: 18px; font-weight: bold; text-align: center;">{{gdcfTitle}}</div>
+  </div>
+  <canvas id="chartCanvas"></canvas>
+</div>

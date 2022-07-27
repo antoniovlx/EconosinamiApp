@@ -1,0 +1,12 @@
+.table-container {
+    max-height: calc(100vh - 220px);
+    overflow: auto;
+}
+
+.mat-column-intensidad {
+    width: 100px;
+}
+
+.mat-row:hover {
+    background-color: white;
+}

@@ -1,0 +1,119 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      <breadcrumb></breadcrumb>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large"></ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <div id="container">
+    <ion-grid fixed="true">
+      <ion-row>
+        <ion-col sizeLg="4" sizeMd="6" sizeSm="6" sizeXs="12">
+          <ion-card class="option" routerLink='./filosofias' routerDirection="forward"
+          expand="block">
+            <img src="./assets/img/filosofia.png">
+            <ion-card-header>
+              <ion-card-title>{{'Filosofias de despacho de recursos' | translate}}</ion-card-title>
+            </ion-card-header>
+            <ion-card-content>
+              {{'Asignación de tipos de medios a cada filosofía de despacho' | translate}}
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+        <ion-col sizeLg="4" sizeMd="6" sizeSm="6" sizeXs="12">
+          <ion-card class="option" routerLink='./grupos-ejecucion' routerDirection="forward"
+              expand="block">
+            <img src="./assets/img/grupo-ejecucion.png">
+            <ion-card-header>
+              <ion-card-title>{{'Grupos de ejecución' | translate}}</ion-card-title>
+            </ion-card-header>
+            <ion-card-content>
+              {{'Definición de grupos de ejecución' | translate}}
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+        <ion-col sizeLg="4" sizeMd="6" sizeSm="6" sizeXs="12">
+          <ion-card class="option" routerLink='./opciones' routerDirection="forward"
+              expand="block">
+            <img src="./assets/img/opciones-ejecucion.png">
+            <ion-card-header>
+              <ion-card-title>{{'Opciones de ejecución' | translate}}</ion-card-title>
+            </ion-card-header>
+            <ion-card-content>
+              {{'Definición de opciones de ejecución y asignación de medios de combate' | translate}}
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+        <ion-col sizeLg="4" sizeMd="6" sizeSm="6" sizeXs="12">
+          <ion-card class="option" routerLink='./cambio-valor-neto' routerDirection="forward"
+              expand="block">
+            <img src="./assets/img/cambio-valor-neto.png">
+            <ion-card-header>
+              <ion-card-title>{{'Cambio neto valor recurso' | translate}}</ion-card-title>
+            </ion-card-header>
+            <ion-card-content>
+              {{'Calcular cambio neto en el valor de los recursos' | translate}}
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+        <ion-col sizeLg="4" sizeMd="6" sizeSm="6" sizeXs="12">
+          <ion-card class="option" routerLink='./inventario-medios' routerDirection="forward"
+              expand="block">
+            <img src="./assets/img/inventario.png">
+            <ion-card-header>
+              <ion-card-title>{{'Inventario de medios' | translate}}</ion-card-title>
+            </ion-card-header>
+            <ion-card-content>
+              {{'Generar tabla maestra de recursos y editar inventario de medios' | translate}}
+            </ion-card-content>
+          </ion-card>
+        </ion-col> 
+        <ion-col sizeLg="4"  sizeMd="6" sizeSm="6" sizeXs="12">
+          <ion-card class="option" (click)="generarTablaIntensidades()">
+            <img src="./assets/img/tabla.png">
+            <ion-card-header>
+              <ion-card-title>{{'Tabla intensidades medios' | translate}}</ion-card-title>
+            </ion-card-header>
+            <ion-card-content>
+              {{'Generar tabla de intensidades de activación de medios' | translate}}
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+        <ion-col sizeLg="4" sizeMd="6" sizeSm="6" sizeXs="12">
+          <ion-card class="option" (click)="open('./ejecucion/calibracion')">
+            <img src="./assets/img/calibracion.png">
+            <ion-card-header>
+              <ion-card-title>{{'Calibración' | translate}}</ion-card-title> <ion-icon slot="start" name="add"></ion-icon>
+            </ion-card-header>
+            <ion-card-content>
+              {{'Descripción calibración' | translate}}
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+        <ion-col sizeLg="4"  sizeMd="6" sizeSm="6" sizeXs="12">
+          <ion-card class="option" routerLink='./ejecutar' routerDirection="forward"
+              expand="block">
+            <img src="./assets/img/run.png">
+            <ion-card-header>
+              <ion-card-title>{{'Ejecutar simulación' | translate}}</ion-card-title>
+            </ion-card-header>
+            <ion-card-content>
+              {{'Descripción ejecutar simulación' | translate}}
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+</ion-content>

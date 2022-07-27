@@ -1,0 +1,158 @@
+<ion-grid fixed>
+  <!--<div mat-dialog-actions align="end">
+    <button mat-button (click)="cancelar()">
+      <mat-icon class="red-icon">close</mat-icon>{{'Cancelar' | translate}}
+    </button>
+    <button mat-button cdkFocusInitial (click)="guardar()">
+      <mat-icon class="green-icon">done</mat-icon>{{'Guardar' | translate}}
+    </button>
+  </div>-->
+  <ion-row>
+    <ion-col sizeSm="6" sizeXs="12">
+      <ion-item>
+        <ion-label position="stacked">{{'Código' | translate}} (*)</ion-label>
+        <ion-input #codigoZamif required [(ngModel)]="zamif.zamif" (ionChange)="setButtons()"></ion-input>
+      </ion-item>
+    </ion-col>
+    <ion-col sizeSm="6" sizeXs="12">
+      <ion-item>
+        <ion-label position="stacked">{{'Descripción' | translate}} (*)</ion-label>
+        <ion-input #descripcionZamif required [(ngModel)]="zamif.descripcion" (ionChange)="setButtons()"></ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <titulo-apartado [imagePath]="'./assets/img/fuegos-intensidad.png'" [titulo]="'Modelos de combustibles'">
+  </titulo-apartado>
+
+  <ion-row>
+    <ion-col sizeMd="8" sizeSm="6" sizeXs="12">
+      <ion-item>
+        <ion-label position="stacked">{{'Modelo 1' | translate}}</ion-label>
+        <ion-select #modelo1 *ngIf="selectedModel1 !== undefined" [value]="selectedModel1"
+          (ionChange)="updateModelo1(modelo1.value)">
+          <ion-select-option *ngFor="let modelo of modelosCombustibles" [value]="modelo.idModeloCombustible">
+            {{modelo.idModeloCombustible + '.- ' + modelo.modeloCombustible}}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-col>
+    <ion-col sizeMd="4" sizeSm="6" sizeXs="12">
+      <ion-item>
+        <ion-label position="stacked">{{'Porcentaje' | translate}}</ion-label>
+        <ion-input type="number" [(ngModel)]="zamif.porc1"></ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col sizeMd="8" sizeSm="6" sizeXs="12">
+      <ion-item>
+        <ion-label position="stacked">{{'Modelo 2' | translate}}</ion-label>
+        <ion-select *ngIf="selectedModel2 !== undefined" [value]="selectedModel2" #modelo2
+          (ionChange)="updateModelo2(modelo2.value)">
+          <ion-select-option *ngFor="let modelo of modelosCombustibles" [value]="modelo.idModeloCombustible">
+            {{modelo.idModeloCombustible + '.- ' + modelo.modeloCombustible}}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-col>
+    <ion-col sizeMd="4" sizeSm="6" sizeXs="12">
+      <ion-item>
+        <ion-label position="stacked">{{'Porcentaje' | translate}}</ion-label>
+        <ion-input type="number" [(ngModel)]="zamif.porc2"></ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col sizeMd="8" sizeSm="6" sizeXs="12">
+      <ion-item>
+        <ion-label position="stacked">{{'Modelo 3' | translate}}</ion-label>
+        <ion-select *ngIf="selectedModel3 !== undefined" [value]="selectedModel3" #modelo3
+          (ionChange)="updateModelo3(modelo3.value)">
+          <ion-select-option *ngFor="let modelo of modelosCombustibles" [value]="modelo.idModeloCombustible">
+            {{modelo.idModeloCombustible + '.- ' + modelo.modeloCombustible}}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-col>
+    <ion-col sizeMd="4" sizeSm="6" sizeXs="12">
+      <ion-item>
+        <ion-label position="stacked">{{'Porcentaje' | translate}}</ion-label>
+        <ion-input type="number" [(ngModel)]="zamif.porc3"></ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col sizeMd="6" sizeSm="6" sizeXs="12">
+      <ion-item>
+        <ion-label position="stacked">{{'Superficie en el momento de la detección' | translate}}:</ion-label>
+        <ion-input type="number" [(ngModel)]="zamif.superficieDet"></ion-input>
+      </ion-item>
+    </ion-col>
+    <ion-col sizeMd="6" sizeSm="6" sizeXs="12">
+      <ion-item>
+        <ion-label position="stacked">{{'Perímetro de incendio escapado' | translate}}:</ion-label>
+        <ion-input type="number" [(ngModel)]="zamif.perimEsc"></ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col sizeMd="6" sizeSm="6" sizeXs="12">
+      <ion-item>
+        <ion-label position="stacked">{{'Número horas transcurridas al declararse escapado' | translate}}:</ion-label>
+        <ion-input type="number" [(ngModel)]="zamif.horasEsc"></ion-input>
+      </ion-item>
+    </ion-col>
+    <ion-col sizeMd="6" sizeSm="6" sizeXs="12">
+      <ion-item>
+        <ion-label position="stacked">{{'Área máxima quemada en esta zona' | translate}}:</ion-label>
+        <ion-input type="number" [(ngModel)]="zamif.areaMaxQuemada"></ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <titulo-apartado [imagePath]="'./assets/img/lugar_representativo.png'" [titulo]="'Lugares representativos'">
+  </titulo-apartado>
+  <div class="table-container mat-elevation-z8">
+    <table mat-table [dataSource]="dataSource">
+      <ng-container matColumnDef="select">
+        <th mat-header-cell *matHeaderCellDef>
+          <mat-checkbox (change)="$event ? masterToggle() : null" [checked]="selection.hasValue() && isAllSelected()"
+            [indeterminate]="selection.hasValue() && !isAllSelected()" [aria-label]="checkboxLabel()">
+          </mat-checkbox>
+        </th>
+        <td mat-cell *matCellDef="let row">
+          <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null"
+            [checked]="selection.isSelected(row)" [aria-label]="checkboxLabel(row.idLr, row)">
+          </mat-checkbox>
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="lr">
+        <th mat-header-cell *matHeaderCellDef> {{'Código' | translate}} </th>
+        <td mat-cell *matCellDef="let element"> {{element.lr}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="descripcion">
+        <th mat-header-cell *matHeaderCellDef> {{'Descripción' | translate}} </th>
+        <td mat-cell *matCellDef="let element"> {{element.descripcion}} </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+      <tr mat-row (click)="open(row)" *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+    <loading [isLoading]="isLoading"></loading>
+  </div>
+
+  <div class="options">
+    <button (click)="open()" mat-raised-button [disabled]="codigoZamif.value == '' || descripcionZamif.value == ''">
+      <mat-icon class="green-icon">add</mat-icon> <span>{{'Añadir lugar' | translate}}</span>
+    </button>
+    <button [disabled]="!isSelected()" (click)="delete()" mat-raised-button>
+      <mat-icon class="red-icon">delete</mat-icon> <span>{{'Borrar lugar' | translate}}</span>
+    </button>
+  </div>
+</ion-grid>

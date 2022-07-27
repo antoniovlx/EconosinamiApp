@@ -1,0 +1,68 @@
+<ion-grid fixed>
+    <!--<div mat-dialog-actions align="end">
+      <button mat-button cdkFocusInitial (click)="ejecutar()">
+        <mat-icon class="blue-icon">build</mat-icon>{{'Ejecutar calibración' | translate}}
+      </button>
+    </div>-->
+    <!--<ion-row>
+      <ion-col size="12" style="text-align: left !important;">
+        <ion-note>{{'Seleccione uno o varios elementos' | translate}}:</ion-note>
+      </ion-col>
+    </ion-row>-->
+    <ion-row>
+      <ion-col sizeMd="4" sizeXs="12">
+        <div class="table-container mat-elevation-z8">
+            <table mat-table [dataSource]="zamifList">
+                <ng-container matColumnDef="titulo">
+                    <th mat-header-cell *matHeaderCellDef> {{'Zamif' | translate}} </th>
+                    <td mat-cell *matCellDef="let element" [ngClass]="{'selected': element.idZamif === selectedZamif}"
+                        (click)="updateZamif(element.idZamif)"> {{ "(" + element.zamif + ") " + element.descripcion}}
+                    </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+            <ion-button *ngIf="zamifList.length === 0" routerLink="/zonas-analisis/1" expand="block" fill="clear" shape="round">
+              {{'No hay zonas de análisis, pulsa para añadir' | translate}}
+            </ion-button>
+        </div>
+      </ion-col>
+      <ion-col sizeMd="4" sizeXs="12">
+        <div class="table-container mat-elevation-z8">
+            <table mat-table [dataSource]="opcionesEjecucion">
+                <ng-container matColumnDef="titulo">
+                    <th mat-header-cell *matHeaderCellDef> {{'Opciones de ejecución' | translate}} </th>
+                    <td mat-cell *matCellDef="let element"
+                        [ngClass]="{'selected': element.idOpcion === selectedOpciones}"
+                        (click)="updateOpciones(element.idOpcion)"> {{ "(" + element.opcion + ") " +
+                        element.descripcion}} </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+            <ion-button *ngIf="opcionesEjecucion.length === 0" routerLink="/ejecucion/opciones/1" expand="block" fill="clear" shape="round">
+              {{'No hay opciones de ejecución, pulsa para añadir' | translate}}
+            </ion-button>
+        </div>
+      </ion-col>
+      <ion-col sizeMd="4" sizeXs="12">
+        <div class="table-container mat-elevation-z8">
+            <table mat-table [dataSource]="gruposComportamientoFuego">
+                <ng-container matColumnDef="titulo">
+                    <th mat-header-cell *matHeaderCellDef> {{'Comportamiento del fuego en los ZAMIF' | translate}} </th>
+                    <td mat-cell *matCellDef="let element" [ngClass]="{'selected': element.idGdcf === selectedGrupos}"
+                        (click)="updateGdcf(element.idGdcf)">{{ "(" + element.gdcf + ") " + element.descripcion}} </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+            <ion-button *ngIf="gruposComportamientoFuego.length === 0" routerLink="/zonas-analisis/2" expand="block" fill="clear" shape="round">
+              {{'No hay grupos de comportamiento del fuego, pulsa para añadir' | translate}}
+            </ion-button>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>

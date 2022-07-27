@@ -1,0 +1,19 @@
+.mat-row:hover {
+    background-color: white;
+}
+
+.table-container {
+    max-height: calc(100vh - 200px);
+    overflow: auto;
+}
+
+table .mat-form-field {
+    width: 70%;
+    text-align: center;
+    margin-left: -45px;
+    margin-right: -45px;
+} 
+
+.mat-sticky{
+    margin-top: -3px !important;
+}

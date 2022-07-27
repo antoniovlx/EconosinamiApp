@@ -1,0 +1,14 @@
+
+{
+  "appId": "io.labif.econosinami",
+  "appName": "econosinami",
+  "webDir": "www",
+  "bundledWebRuntime": "false",
+  "plugins": {
+    "CapacitorSQLite": {
+      "electronWindowsLocation": "C:\\ProgramData\\CapacitorDatabases",
+      "electronMacLocation": "/Volumes/Development_Lacie/Development/CapacitorDatabases",
+      "electronLinuxLocation": "Databases"
+    }
+  }
+}

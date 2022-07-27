@@ -1,0 +1,127 @@
+<ion-grid fixed>
+  <ion-row>
+    <ion-col size="12">
+      <div class="subtitulo-ventana">
+        <mat-icon class="arrow-right-icon">arrow_right</mat-icon>
+        <span>{{'Hectareas quemadas' | translate}}</span>
+      </div>
+      <div class="table-container mat-elevation-z8"> 
+        <table mat-table [dataSource]="dataSourceHectareasQuemadas">
+          <ng-container matColumnDef="intensidad">
+            <th mat-header-cell *matHeaderCellDef> {{'Intensidad' | translate}} </th>
+            <td mat-cell *matCellDef="let element; let i = index" [ngClass]="{'strong': i > 5}"> {{ element[0] |
+              translate }} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="tamano1">
+            <th mat-header-cell *matHeaderCellDef> {{ tamanos[0] }}</th>
+            <td mat-cell *matCellDef="let element; let i = index" [ngClass]="{'blue': i < 6, 'red': i == 8}">
+              {{element[1]}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="tamano2">
+            <th mat-header-cell *matHeaderCellDef> {{ tamanos[1] }}</th>
+            <td mat-cell *matCellDef="let element; let i = index" [ngClass]="{'blue': i < 6, 'red': i == 8}">
+              {{element[2]}}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="tamano3">
+            <th mat-header-cell *matHeaderCellDef> {{ tamanos[2] }}</th>
+            <td mat-cell *matCellDef="let element; let i = index" [ngClass]="{'blue': i < 6, 'red': i == 8}">
+              {{element[3]}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="tamano4">
+            <th mat-header-cell *matHeaderCellDef> {{ tamanos[3] }}</th>
+            <td mat-cell *matCellDef="let element; let i = index" [ngClass]="{'blue': i < 6, 'red': i == 8}">
+              {{element[4]}} </td>
+          </ng-container>
+
+
+          <ng-container matColumnDef="tamano5">
+            <th mat-header-cell *matHeaderCellDef> {{ tamanos[4] }}</th>
+            <td mat-cell *matCellDef="let element; let i = index" [ngClass]="{'blue': i < 6, 'red': i == 8}">
+              {{element[5]}}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="tamano6">
+            <th mat-header-cell *matHeaderCellDef> {{ tamanos[5] }}</th>
+            <td mat-cell *matCellDef="let element; let i = index" [ngClass]="{'blue': i < 6, 'red': i == 8}">
+              {{element[6]}}
+          </ng-container>
+
+          <ng-container matColumnDef="total">
+            <th mat-header-cell *matHeaderCellDef> Total </th>
+            <td mat-cell *matCellDef="let element"> {{element[7]}}
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+      </div>
+      <div class="subtitulo-ventana">
+        <mat-icon class="arrow-right-icon">arrow_right</mat-icon>
+        <span>{{'Número de fuegos' | translate}}</span>
+      </div>
+      <div class="table-container mat-elevation-z8">
+        <table mat-table [dataSource]="dataSourceNumeroFuegos">
+          <ng-container matColumnDef="intensidad">
+            <th mat-header-cell *matHeaderCellDef> {{'Intensidad' | translate}} </th>
+            <td mat-cell *matCellDef="let element; let i = index" [ngClass]="{'strong': i > 5}">
+              {{ element[0] | translate }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="tamano1">
+            <th mat-header-cell *matHeaderCellDef> {{ tamanos[0] }}</th>
+            <td mat-cell *matCellDef="let element; let i = index" [ngClass]="{'blue': i < 6, 'red': i == 8}">
+              {{element[1]}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="tamano2">
+            <th mat-header-cell *matHeaderCellDef> {{ tamanos[1] }}</th>
+            <td mat-cell *matCellDef="let element; let i = index" [ngClass]="{'blue': i < 6, 'red': i == 8}">
+              {{element[2]}}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="tamano3">
+            <th mat-header-cell *matHeaderCellDef> {{ tamanos[2] }}</th>
+            <td mat-cell *matCellDef="let element; let i = index" [ngClass]="{'blue': i < 6, 'red': i == 8}">
+              {{element[3]}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="tamano4">
+            <th mat-header-cell *matHeaderCellDef> {{ tamanos[3] }}</th>
+            <td mat-cell *matCellDef="let element; let i = index" [ngClass]="{'blue': i < 6, 'red': i == 8}">
+              {{element[4]}} </td>
+          </ng-container>
+
+
+          <ng-container matColumnDef="tamano5">
+            <th mat-header-cell *matHeaderCellDef> {{ tamanos[4] }}</th>
+            <td mat-cell *matCellDef="let element; let i = index" [ngClass]="{'blue': i < 6, 'red': i == 8}">
+              {{element[5]}}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="tamano6">
+            <th mat-header-cell *matHeaderCellDef> {{ tamanos[5] }}</th>
+            <td mat-cell *matCellDef="let element; let i = index" [ngClass]="{'blue': i < 6, 'red': i == 8}">
+              {{element[6]}}
+          </ng-container>
+
+          <ng-container matColumnDef="total">
+            <th mat-header-cell *matHeaderCellDef> Total </th>
+            <td mat-cell *matCellDef="let element"> {{element[7]}}
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+      </div>
+    </ion-col>
+  </ion-row>
+</ion-grid>

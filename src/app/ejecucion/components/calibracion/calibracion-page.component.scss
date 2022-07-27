@@ -1,0 +1,27 @@
+.fixed{
+    position: fixed;
+    width: 100%;
+    z-index: 1000;
+}
+
+/* width */
+::-webkit-scrollbar {
+    height: 8px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px grey;
+    border-radius: 1px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #c3c37c;
+    border-radius: 1px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #bdbcbc;
+}

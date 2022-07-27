@@ -1,0 +1,7 @@
+
+{
+  "appId": "io.labif.econosinami",
+  "appName": "econosinami",
+  "webDir": "www",
+  "bundledWebRuntime": "false"
+}

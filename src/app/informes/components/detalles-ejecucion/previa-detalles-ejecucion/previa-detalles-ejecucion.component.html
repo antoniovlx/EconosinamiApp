@@ -1,0 +1,285 @@
+<!--<div mat-dialog-actions align="end">
+  <button mat-button (click)="close()">
+      <mat-icon class="red-icon">close</mat-icon>{{ 'Cancelar' | translate}}
+  </button>
+  <button mat-button cdkFocusInitial (click)="save()">
+      <mat-icon class="green-icon">save</mat-icon>{{ 'Guardar' | translate}}
+  </button>
+</div>-->
+<div #content>
+  <div class="invoice-box">
+      <table cellpadding="0" cellspacing="0">
+          <tr class="top">
+              <td [attr.colspan]="colSpan">
+                  <table>
+                      <tr>
+                          <td class="title">
+                              <!--<img src="https://www.sparksuite.com/images/logo.png" style="width: 100%; max-width: 300px" />-->
+                              <img src="data:image/png;base64,{{base64Logo}}"
+                                  style="margin-left: -12px;width: 100%; max-width: 550px" />
+                              <!--<span>{{ 'TITULO_APP' | translate}}</span>-->
+                          </td>
+                      </tr>
+                      <tr class="details">
+                          <td class="titulo">{{ 'DESCRIPCION APP' | translate}}</td>
+                      </tr>
+                  </table>
+              </td>
+          </tr>
+          <tr class="information">
+              <td [attr.colspan]="colSpan">
+                  <table>
+                      <tr>
+                          <td class="subtitulo">
+                              {{ 'Detalles de ejecución' | translate}}
+                          </td>
+                          <td class="subtitulo">
+                              {{ 'Fecha' | translate}}: {{ today }}
+                          </td>
+                      </tr>
+                  </table>
+              </td>
+          </tr>
+      </table>
+      <table [attr.id]="'tableId' + zamifIndex" cellpadding="0" cellspacing="0"
+          *ngFor="let data of datosIntensidad;let zamifIndex = index">
+          <div class="separator"></div>
+          <div class="espacio"></div>
+          <tr class="details principal">
+              <td [attr.colspan]="colSpan">({{zamifIndex + 1}}) <strong>{{ 'Zamif' | translate}}:</strong> ({{ data.zamif.zamif }})
+                  {{
+                  data.zamif.descripcion }}</td>
+          </tr>
+          <tr class="details">
+              <td [attr.colspan]="colSpan"><strong>{{ 'Modelo de combustibles' | translate}}:</strong></td>
+          </tr>
+          <tr class="details">
+              <td [attr.colspan]="colSpan">{{data.zamif.porc1}} {{ getModeloCombustible(data.zamif.modComb1)}}
+              </td>
+          </tr>
+          <tr class="details">
+              <td [attr.colspan]="colSpan">{{data.zamif.porc2}} {{ getModeloCombustible(data.zamif.modComb2)}}
+              </td>
+          </tr>
+          <tr class="details">
+              <td [attr.colspan]="colSpan">{{data.zamif.porc3}} {{ getModeloCombustible(data.zamif.modComb3)}}
+              </td>
+          </tr>
+          <tr class="details">
+              <td [attr.colspan]="colSpan"><strong>{{ 'Perímetro final' | translate}}:</strong> {{
+                  data.zamif.perimEsc }}</td>
+          </tr>
+          <tr class="details border-bottom">
+              <td [attr.colspan]="colSpan"><strong>{{ 'Número horas transcurridas al declararse escapado' | translate}}:</strong> {{
+                  data.zamif.horasEsc }}</td>
+          </tr> 
+          <ng-container *ngFor="let dataOpcion of data.opciones; let opcionIndex = index;">
+              <div *ngIf="opcionIndex > 0 && data.opciones.length > 1" class="separator"></div>
+              <ng-container *ngIf="nivelesIntensidadTablaVisible === true">
+                  <tr class="espacio"></tr>
+                  <tr class="heading principal">
+                      <td [attr.colspan]="colSpan">{{ 'Resumen según niveles de intensidad y tamaño final del fuego' | translate}}</td>
+                  </tr>
+                  <tr class="details">
+                      <td [attr.colspan]="colSpan">- {{ 'Opción de ejecución' | translate}}: ({{ dataOpcion.opcion.opcion }}) {{
+                          dataOpcion.opcion.descripcion }}</td>
+                  </tr>
+                  <tr class="details">
+                      <td [attr.colspan]="colSpan">- {{ 'Grupo de comportamiento del fuego' | translate}}: ({{ data.grupo.gdcf }})
+                          {{ data.grupo.descripcion }}</td>
+                  </tr>
+                  <tr class="heading centrar">
+                      <td>{{ 'Intensidad' | translate}}</td>
+                      <td>{{ 'Número de fuegos' | translate}}</td>
+                      <td>{{ 'LR' | translate}}</td>
+                      <td>{{ 'Percentil' | translate}}</td>
+                      <td>{{ 'Velocidad' | translate}}</td>
+                      <td colspan="2">{{ 'Tamaño' | translate}}</td>
+                      <td>{{ 'Perímetro final' | translate}}</td>
+                      <td>{{ 'Fuegos anuales' | translate}}</td>
+                      <td colspan="2">{{ 'Costo supresión' | translate}} ({{moneda}})</td>
+                      <td colspan="2">{{ 'Cambio neto valor' | translate}} ({{moneda}})</td>
+                  </tr>
+                  <tr *ngFor="let row of dataOpcion.dataNivelTamanoFuego; let i = index;" class="details centrar">
+                      <td>{{ row.intensidad }} </td>
+                      <td>{{ row.numeroFuegos }} </td>
+                      <td>{{ row.lr }} </td>
+                      <td>{{ row.percentil }} </td>
+                      <td>{{ row.velocidad }} </td>
+                      <td colspan="2">{{ row.area }} {{ (row.status == 'S' || row.status == 'T') ? '*' : ' ' }} </td>
+                      <td>{{ row.perimetro }} {{ (row.status == 'S' || row.status == 'T') ? '*' : ' ' }}
+                      </td>
+                      <td>{{ row.frecuencia }} </td>
+                      <td colspan="2">{{ row.costo }} </td>
+                      <td colspan="2">{{ row.cnvr }} </td>
+                  </tr>
+              </ng-container>
+              <ng-container *ngIf="hectareasQuemadasTablaVisible === true">
+                  <tr class="espacio"></tr>
+                  <div *ngIf="nivelesIntensidadTablaVisible === true" class="separator"></div>
+                  <tr class="heading principal">
+                      <td [attr.colspan]="colSpan">{{ 'Estimación de las hectáreas quemadas anualmente según niveles de intensidad y tamaño final del fuego' | translate}}</td>
+                  </tr>
+                  <tr class="details">
+                      <td [attr.colspan]="colSpan">- {{ 'Opción de ejecución' | translate}}: ({{ dataOpcion.opcion.opcion }} {{
+                          dataOpcion.opcion.descripcion }}</td>
+                  </tr>
+                  <tr class="details">
+                      <td [attr.colspan]="colSpan">- {{ 'Grupo de comportamiento del fuego' | translate}}: ({{
+                          data.grupo.gdcf }})
+                          {{ data.grupo.descripcion }}</td>
+                  </tr>
+                  <tr class="heading centrar">
+                      <td>{{ 'Intensidad' | translate}}</td>
+                      <td colspan="2">&lt; 0.1 has</td>
+                      <td colspan="2">0.1 - 3.99 has</td>
+                      <td colspan="2">4 - 39.99 has</td>
+                      <td colspan="2">40 - 119.99 has</td>
+                      <td colspan="2">120 - 399.99 has</td>
+                      <td colspan="2">&ge; 400 has</td>
+                      <td>Total</td>
+                  </tr>
+                  <tr *ngFor="let row of dataOpcion.dataEstimacionHectareas.dataIntensidad; let i = index;"
+                      class="details centrar">
+                      <td>{{ row.intensidad }} </td>
+                      <td colspan="2" *ngFor="let tam of row.tamanos">{{ tam }} </td>
+                      <td>{{ row.totalIntensidad | number }} </td>
+                  </tr>
+                  <tr class="details centrar border-top">
+                      <td><strong>Total</strong></td>
+                      <td colspan="2" *ngFor="let total of dataOpcion.dataEstimacionHectareas.totalSize">{{ total |
+                          number
+                          }}
+                      </td>
+                  </tr>
+                  <tr class="details centrar">
+                      <td><strong>{{ 'Histórico' | translate }}</strong></td>
+                      <td colspan="2" *ngFor="let historico of dataOpcion.dataEstimacionHectareas.historico">{{
+                          historico
+                          }}
+                      </td>
+                  </tr>
+                  <tr class="details centrar">
+                      <td><strong>% {{ "Diferencia" | translate }}</strong></td>
+                      <td colspan="2" *ngFor="let porc of dataOpcion.dataEstimacionHectareas.porcentaje">{{ porc }}
+                      </td>
+                  </tr>
+              </ng-container>
+              <ng-container *ngIf="fuegosAnualesTablaVisible === true">
+                  <tr class="espacio"></tr>
+                  <div *ngIf="nivelesIntensidadTablaVisible === true || hectareasQuemadasTablaVisible === true" class="separator"></div>
+                  <tr class="heading principal">
+                      <td [attr.colspan]="colSpan">
+                          {{ 'Estimación de número de fuegos anuales según niveles de intensidad y tamaño final del fuego' | translate}}
+                      </td>
+                  </tr>
+                  <tr class="details">
+                      <td [attr.colspan]="colSpan">- {{'Opción de ejecución' | translate}}: ({{ dataOpcion.opcion.opcion }} {{
+                          dataOpcion.opcion.descripcion }}</td>
+                  </tr>
+                  <tr class="details">
+                      <td [attr.colspan]="colSpan">- {{'Grupo de comportamiento del fuego' | translate}}: ({{ data.grupo.gdcf }})
+                          {{ data.grupo.descripcion }}</td>
+                  </tr>
+                  <tr class="heading centrar">
+                      <td>{{ 'Intensidad' | translate}}</td>
+                      <td colspan="2">&lt; 0.1 has</td>
+                      <td colspan="2">0.1 - 3.99 has</td>
+                      <td colspan="2">4 - 39.99 has</td>
+                      <td colspan="2">40 - 119.99 has</td>
+                      <td colspan="2">120 - 399.99 has</td>
+                      <td colspan="2">&ge; 400 has</td>
+                      <td>Total</td>
+                  </tr>
+                  <tr *ngFor="let row of dataOpcion.dataEstimacionFuegosAnuales.dataIntensidad; let i = index;"
+                      class="details centrar">
+                      <td>{{ row.intensidad }} </td>
+                      <td colspan="2" *ngFor="let tam of row.tamanos">{{ tam }} </td>
+                      <td>{{ row.totalIntensidad | number }} </td>
+                  </tr>
+                  <tr class="details centrar border-top">
+                      <td><strong>Total</strong></td>
+                      <td colspan="2" *ngFor="let total of dataOpcion.dataEstimacionFuegosAnuales.totalSize">{{ total
+                          |
+                          number }}
+                      </td>
+                  </tr>
+                  <tr class="details centrar">
+                      <td><strong>{{ 'Histórico' | translate}}</strong></td>
+                      <td colspan="2" *ngFor="let historico of dataOpcion.dataEstimacionFuegosAnuales.historico">{{
+                          historico }}
+                      </td>
+                  </tr>
+                  <tr class="details centrar">
+                      <td><strong>% {{ 'Diferencia' | translate}}</strong></td>
+                      <td colspan="2" *ngFor="let porc of dataOpcion.dataEstimacionFuegosAnuales.porcentaje">{{ porc
+                          }}
+                      </td>
+                  </tr>
+                  <tr class="details centrar">
+                      <td><strong>% {{ 'Acumulado' | translate}}</strong></td>
+                      <td colspan="2" *ngFor="let porc of dataOpcion.dataEstimacionFuegosAnuales.porcentajeAcum">{{
+                          porc
+                          }}
+                      </td>
+                  </tr>
+              </ng-container>
+              <ng-container *ngIf="fuegosAnualesLugaresTablaVisible === true">
+                  <tr class="espacio"></tr>
+                  <div *ngIf="nivelesIntensidadTablaVisible === true && hectareasQuemadasTablaVisible === true && fuegosAnualesTablaVisible === false" class="separator"></div>
+                  <tr class="heading principal">
+                      <td [attr.colspan]="colSpan">{{ 'Resumen de fuegos anuales por lugares representativos' | translate}}</td>
+                  </tr>
+                  <tr class="heading centrar">
+                      <td colspan="2">{{ 'Lugar representativo' | translate}}</td>
+                      <td colspan="2">{{ 'Frecuencia' | translate}}</td>
+                      <td colspan="2">{{ 'Superficie' | translate}}</td>
+                      <td colspan="2">{{ 'Costo supresión' | translate}}({{moneda}})</td>
+                      <td colspan="2">{{ 'Cambio neto valor' | translate}}({{moneda}})</td>
+                      <td colspan="2">Total (C+CNVR)</td>
+                  </tr>
+                  <tr class="details centrar" *ngFor="let row of dataOpcion.dataResumenFuegosAnuales.data">
+                      <td colspan="2">({{row.lr.lr}}) {{row.lr.descripcion}} </td>
+                      <td colspan="2">{{row.frecuencia | number}}</td>
+                      <td colspan="2">{{row.area | number}}</td>
+                      <td colspan="2">{{row.costo | number}}</td>
+                      <td colspan="2">{{row.cnvr | number}}</td>
+                      <td colspan="2">{{row.total | number}}</td>
+                  </tr>
+                  <tr class="details centrar border-top">
+                      <td colspan="2"><strong>Total</strong></td>
+                      <td colspan="2" *ngFor="let total of dataOpcion.dataResumenFuegosAnuales.total">{{total |
+                          number}}
+                      </td>
+                  </tr>
+              </ng-container>
+              <ng-container *ngIf="intensidadActivacionMediosTablaVisible === true">
+                  <tr class="espacio"></tr>
+                  <div *ngIf="nivelesIntensidadTablaVisible === true && hectareasQuemadasTablaVisible === true && fuegosAnualesTablaVisible === false && fuegosAnualesLugaresTablaVisible === false" class="separator"></div>
+                  <tr class="heading principal">
+                      <td [attr.colspan]="colSpan">{{ 'Intensidades de activación de medios por lugares representativos' | translate}}
+                      </td>
+                  </tr>
+                  <tr class="details">
+                      <td [attr.colspan]="colSpan">- {{ 'Opción' | translate}}: ({{ dataOpcion.opcion.opcion }}
+                          {{dataOpcion.opcion.descripcion
+                          }}</td>
+                  </tr>
+                  <tr class="details" *ngFor="let lr of data.zamif.lrs; let i = index">
+                      <td [attr.colspan]="colSpan">- {{ 'Lugar representativo' | translate}}: {{ i + 1 }} ({{lr.lr}}) {{lr.descripcion}}
+                      </td>
+                  </tr>
+
+                  <tr class="heading centrar">
+                      <td colspan="5">{{ 'Medio' | translate}}</td>
+                      <td colspan="2" *ngFor="let lr of data.zamif.lrs; let i = index">LR {{i + 1}}</td>
+                  </tr>
+                  <tr class="details centrar" *ngFor="let row of dataOpcion.dataIntensidadesActivacionLr; let i = index">
+                      <td colspan="5">({{row.medio.medio}}) {{ row.medio.descripcion }}</td>
+                      <td colspan="2" *ngFor="let element of row.data">{{element.intensidad}}</td>
+                  </tr>
+              </ng-container>
+          </ng-container>
+      </table>
+  </div>
+</div>
